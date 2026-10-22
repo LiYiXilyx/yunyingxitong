@@ -84,3 +84,27 @@ def test_shared_invalid_signed_commands():
         with pytest.raises(contract.ContractError):contract.validate_command(value)
     result=subprocess.run(['node','contracts/typescript/validate.ts'],cwd=ROOT,input=json.dumps(values),text=True,capture_output=True,check=True)
     assert json.loads(result.stdout)==[False]*len(values)
+
+
+def test_openapi_separates_implemented_nocobase_commands_from_pending_data_apis():
+    document=json.loads((ROOT/'contracts/openapi.yaml').read_text())
+    implemented={path for path,methods in document['paths'].items() if any(operation.get('x-implementation')=='implemented' for operation in methods.values())}
+    assert implemented=={'/health/live','/health/ready','/api/opsConfig:snapshot','/api/opsConfig:command','/api/opsRule:command'}
+    for path,method in [('/api/opsConfig:snapshot','get'),('/api/opsConfig:command','post'),('/api/opsRule:command','post')]:
+        operation=document['paths'][path][method]
+        assert operation['servers']==[{'url':'http://127.0.0.1:13000'}]
+        assert operation['security']==[{'nocobaseBearer':[]}]
+    assert document['servers']==[{'url':'http://127.0.0.1:18000'}]
+
+
+def test_t03_config_command_version_is_an_integer_not_signed_envelope_revision():
+    from jsonschema import Draft202012Validator
+    from jsonschema.exceptions import ValidationError
+    document=json.loads((ROOT/'contracts/openapi.yaml').read_text())
+    schema={'$ref':'#/components/schemas/ConfigCommand','components':document['components']}
+    validate=Draft202012Validator(schema).validate
+    command={'command':'saveMembership','command_id':'example-command','expected_version':0,'reason':'synthetic test','values':{'business_id':'33333333-3333-4333-a333-333333333333','store_id':'858f0efd-4409-406c-adfb-28490350fd39','user_id':2,'membership_role':'ops_operator','environment':'synthetic'}}
+    validate(command)
+    for version in ['0',True,1.5]:
+        with pytest.raises(ValidationError):
+            validate({**command,'expected_version':version})

@@ -1,123 +1,163 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Ops v1 contract draft",
-    "version": "0.1.0",
-    "description": "T02 implements health routes only. All business operations are drafts marked pending. Hash is SHA256 over the entire envelope except payload_hash, recursively sorted ASCII keys and compact UTF-8 JSON; all numeric quantities use decimal strings."
+    "title": "Ops API contracts",
+    "version": "0.2.0",
+    "description": "T03 implements synthetic configuration snapshots, administrator configuration commands and supervisor rule commands in NocoBase on port 13000. The data service on port 18000 implements health routes only. Other operations remain pending. The T03 command API uses numeric integer configuration versions and ordinary JSON bodies; it does not use the pending signed worker envelope. The pending worker envelope hashes compact sorted UTF-8 JSON except payload_hash and uses decimal strings for revisions and quantities."
   },
   "paths": {
     "/api/opsConfig:snapshot": {
       "get": {
-        "x-implementation": "pending",
-        "description": "Design contract only. Not registered by the T02 FastAPI application. Authentication, scope enforcement, durable Inbox/Outbox and business effects remain pending.",
+        "x-implementation": "implemented",
+        "x-contract-status": "synthetic-only",
+        "servers": [
+          {
+            "url": "http://127.0.0.1:13000"
+          }
+        ],
+        "description": "Returns the current integer configuration version and readable configuration within the authenticated user’s active business scope. capabilities identifies available command permissions. activeRules contains only the latest enabled immutable version for each family + store + warehouse; retiring the latest version does not reactivate an older rule. This is served by the NocoBase plugin, not FastAPI.",
         "security": [
           {
-            "internalBearer": []
+            "nocobaseBearer": []
           }
         ],
         "responses": {
-          "400": {
-            "description": "Invalid structure or hash",
+          "200": {
+            "description": "NocoBase response wrapper; data contains the result.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                  "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/ConfigSnapshot"
+                    }
+                  }
                 }
               }
             }
           },
           "401": {
-            "description": "Unauthenticated",
+            "description": "Missing or invalid NocoBase authentication.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                  "$ref": "#/components/schemas/NocobaseError"
                 }
               }
             }
           },
           "403": {
-            "description": "No authorized scope; invisible object queries use the same policy",
+            "description": "Role or business scope does not permit the operation.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                  "$ref": "#/components/schemas/NocobaseError"
                 }
               }
             }
-          },
-          "409": {
-            "description": "Command ID content conflict or stale expected_version",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "ops-v1.schema.json#/$defs/Error"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Planned response; not implemented in T02."
           }
-        },
-        "x-contract-status": "payload-details-pending"
+        }
       }
     },
     "/api/opsRule:command": {
       "post": {
-        "x-implementation": "pending",
-        "description": "Design contract only. Not registered by the T02 FastAPI application. Authentication, scope enforcement, durable Inbox/Outbox and business effects remain pending.",
+        "x-implementation": "implemented",
+        "x-contract-status": "synthetic-only",
+        "servers": [
+          {
+            "url": "http://127.0.0.1:13000"
+          }
+        ],
+        "description": "Administrator or scope-authorized supervisor command. publish creates an immutable shadow version; enable and retire append a new immutable version using rule_id. Operators and integration accounts cannot publish. Scope must exist and be synthetic. Integer expected_version, audit event, snapshot version and durable receipt are committed atomically; identical retries return the original receipt and conflicts return 409. This does not evaluate rules or dispatch tasks.",
         "security": [
           {
-            "internalBearer": []
+            "nocobaseBearer": []
           }
         ],
         "responses": {
-          "400": {
-            "description": "Invalid structure or hash",
+          "200": {
+            "description": "NocoBase response wrapper; data contains the result.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                  "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/RuleReceipt"
+                    }
+                  }
                 }
               }
             }
           },
           "401": {
-            "description": "Unauthenticated",
+            "description": "Missing or invalid NocoBase authentication.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                  "$ref": "#/components/schemas/NocobaseError"
                 }
               }
             }
           },
           "403": {
-            "description": "No authorized scope; invisible object queries use the same policy",
+            "description": "Role or business scope does not permit the operation.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                  "$ref": "#/components/schemas/NocobaseError"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid command, value field, rule parameters or business scope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NocobaseError"
                 }
               }
             }
           },
           "409": {
-            "description": "Command ID content conflict or stale expected_version",
+            "description": "Stale expected_version, duplicate business binding, retired rule, or command_id reused by a different caller or with different parameters.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                  "$ref": "#/components/schemas/NocobaseError"
                 }
               }
             }
           },
-          "200": {
-            "description": "Planned response; not implemented in T02."
+          "404": {
+            "description": "Referenced rule_id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NocobaseError"
+                }
+              }
+            }
           }
         },
-        "x-contract-status": "payload-details-pending"
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RuleCommand"
+              }
+            }
+          }
+        }
       }
     },
     "/api/opsDataHealth:ingest": {
@@ -775,6 +815,93 @@
           }
         }
       }
+    },
+    "/api/opsConfig:command": {
+      "post": {
+        "x-implementation": "implemented",
+        "x-contract-status": "synthetic-only",
+        "servers": [
+          {
+            "url": "http://127.0.0.1:13000"
+          }
+        ],
+        "description": "Administrator-only synthetic configuration upsert, matched by business_id. Values have explicit field allowlists; id/version/roles cannot be injected. The transaction atomically persists the configuration, audit event, snapshot version and durable receipt. An identical command_id, caller and body returns the original receipt even after later changes. A changed caller or body returns 409. Only explicit synthetic configuration is accepted; no production authorization switch exists.",
+        "security": [
+          {
+            "nocobaseBearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "NocoBase response wrapper; data contains the result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/ConfigReceipt"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid NocoBase authentication.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NocobaseError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Role or business scope does not permit the operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NocobaseError"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid command, value field, rule parameters or business scope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NocobaseError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Stale expected_version, duplicate business binding, retired rule, or command_id reused by a different caller or with different parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NocobaseError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfigCommand"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -783,7 +910,700 @@
         "type": "http",
         "scheme": "bearer",
         "description": "Planned worker/service identity with per-binding and scope authorization; token alone is not scope authorization."
+      },
+      "nocobaseBearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "NocoBase auth:signIn token. Roles and active store/warehouse memberships are re-read on the server. Supplying actor or roles in a request does not grant permission."
+      }
+    },
+    "schemas": {
+      "NocobaseError": {
+        "type": "object",
+        "required": [
+          "errors"
+        ],
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ConfigRecord": {
+        "type": "object",
+        "description": "Scope-filtered persisted configuration row. Native id identifies the NocoBase record; business_id/store_id/warehouse_id are stable business UUIDs. Additional readable fields depend on the collection.",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "business_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "version": {
+            "type": "integer"
+          },
+          "environment": {
+            "type": "string"
+          },
+          "store_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "warehouse_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "RuleRecord": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ConfigRecord"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "family": {
+                "enum": [
+                  "R1",
+                  "R2",
+                  "R3"
+                ]
+              },
+              "status": {
+                "enum": [
+                  "shadow",
+                  "enabled",
+                  "retired"
+                ]
+              },
+              "metric_version": {
+                "type": "string"
+              },
+              "parameters": {
+                "type": "object"
+              },
+              "recovery": {
+                "$ref": "#/components/schemas/RecoveryParameters"
+              }
+            }
+          }
+        ]
+      },
+      "ConfigSnapshot": {
+        "type": "object",
+        "required": [
+          "version",
+          "capabilities",
+          "opsStores",
+          "opsMemberships",
+          "opsWarehouseScopes",
+          "opsOwnerAssignments",
+          "opsRules",
+          "activeRules"
+        ],
+        "properties": {
+          "version": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "capabilities": {
+            "type": "object",
+            "required": [
+              "manageConfig",
+              "publishRules"
+            ],
+            "properties": {
+              "manageConfig": {
+                "type": "boolean"
+              },
+              "publishRules": {
+                "type": "boolean"
+              }
+            }
+          },
+          "opsStores": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ConfigRecord"
+            }
+          },
+          "opsMemberships": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ConfigRecord"
+            }
+          },
+          "opsWarehouseScopes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ConfigRecord"
+            }
+          },
+          "opsOwnerAssignments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ConfigRecord"
+            }
+          },
+          "opsRules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RuleRecord"
+            }
+          },
+          "activeRules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RuleRecord"
+            }
+          },
+          "users": {
+            "type": "array",
+            "description": "Only administrators and supervisors receive the required scope-filtered user directory; absent for operators and integration accounts.",
+            "items": {
+              "type": "object",
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "description": "Native NocoBase user ID, not a business UUID."
+                },
+                "nickname": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "StoreValues": {
+        "type": "object",
+        "properties": {
+          "business_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string"
+          },
+          "environment": {
+            "const": "synthetic"
+          },
+          "store_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "connection_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "erp_store_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "platform": {
+            "type": "string"
+          },
+          "site": {
+            "type": "string"
+          },
+          "timezone": {
+            "type": "string",
+            "description": "Valid IANA time zone, for example UTC."
+          }
+        },
+        "required": [
+          "business_id",
+          "environment",
+          "store_id",
+          "connection_id",
+          "erp_store_id",
+          "timezone"
+        ],
+        "additionalProperties": false,
+        "description": "business_id must equal store_id. The connection_id + erp_store_id binding is unique; updates match business_id."
+      },
+      "MembershipValues": {
+        "type": "object",
+        "properties": {
+          "business_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string"
+          },
+          "environment": {
+            "const": "synthetic"
+          },
+          "store_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "user_id": {
+            "type": "integer",
+            "description": "Native NocoBase user ID, not a business UUID."
+          },
+          "membership_role": {
+            "enum": [
+              "ops_supervisor",
+              "ops_operator",
+              "ops_integration"
+            ]
+          },
+          "status": {
+            "enum": [
+              "active",
+              "inactive"
+            ],
+            "default": "active"
+          }
+        },
+        "required": [
+          "business_id",
+          "environment",
+          "store_id",
+          "user_id",
+          "membership_role"
+        ],
+        "additionalProperties": false
+      },
+      "WarehouseScopeValues": {
+        "type": "object",
+        "properties": {
+          "business_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string"
+          },
+          "environment": {
+            "const": "synthetic"
+          },
+          "warehouse_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "user_id": {
+            "type": "integer",
+            "description": "Native NocoBase user ID, not a business UUID."
+          },
+          "status": {
+            "enum": [
+              "active",
+              "inactive"
+            ],
+            "default": "active"
+          }
+        },
+        "required": [
+          "business_id",
+          "environment",
+          "warehouse_id",
+          "user_id"
+        ],
+        "additionalProperties": false
+      },
+      "OwnerAssignmentValues": {
+        "type": "object",
+        "properties": {
+          "business_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string"
+          },
+          "environment": {
+            "const": "synthetic"
+          },
+          "store_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "warehouse_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "user_id": {
+            "type": "integer",
+            "description": "Native NocoBase user ID, not a business UUID."
+          },
+          "rule_family": {
+            "enum": [
+              "R1",
+              "R2",
+              "R3"
+            ]
+          }
+        },
+        "required": [
+          "business_id",
+          "environment",
+          "user_id",
+          "rule_family"
+        ],
+        "additionalProperties": false,
+        "anyOf": [
+          {
+            "required": [
+              "store_id"
+            ]
+          },
+          {
+            "required": [
+              "warehouse_id"
+            ]
+          }
+        ],
+        "description": "The selected user must already have every specified store and warehouse scope. This stores assignment configuration only; automatic task dispatch remains pending."
+      },
+      "RecoveryParameters": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "observation_hours",
+          "required_complete_days"
+        ],
+        "properties": {
+          "observation_hours": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 8760
+          },
+          "required_complete_days": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 366
+          }
+        },
+        "description": "observation_hours must also be at least required_complete_days * 24; this cross-field condition is validated by the server."
+      },
+      "R1Parameters": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "drop_ratio",
+          "min_baseline_orders"
+        ],
+        "properties": {
+          "drop_ratio": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 1
+          },
+          "min_baseline_orders": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      },
+      "R2Parameters": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "available_qty_threshold"
+        ],
+        "properties": {
+          "available_qty_threshold": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      },
+      "R3Parameters": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "increase_ratio",
+          "min_baseline_refunds"
+        ],
+        "properties": {
+          "increase_ratio": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "min_baseline_refunds": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      },
+      "ConfigReceipt": {
+        "type": "object",
+        "required": [
+          "version",
+          "saved"
+        ],
+        "properties": {
+          "version": {
+            "type": "integer"
+          },
+          "saved": {
+            "const": true
+          }
+        }
+      },
+      "RuleReceipt": {
+        "type": "object",
+        "required": [
+          "version",
+          "rule"
+        ],
+        "properties": {
+          "version": {
+            "type": "integer"
+          },
+          "rule": {
+            "$ref": "#/components/schemas/RuleRecord"
+          }
+        }
+      },
+      "ConfigCommand": {
+        "type": "object",
+        "required": [
+          "command",
+          "command_id",
+          "expected_version",
+          "reason",
+          "values"
+        ],
+        "properties": {
+          "command_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "expected_version": {
+            "type": "integer",
+            "description": "Exact numeric version from opsConfig:snapshot. A stale value returns 409. This is not the decimal-string revision used by pending worker envelopes."
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "command": {
+            "enum": [
+              "saveStore",
+              "saveMembership",
+              "saveWarehouseScope",
+              "saveOwnerAssignment"
+            ]
+          },
+          "values": {
+            "type": "object"
+          }
+        },
+        "oneOf": [
+          {
+            "properties": {
+              "command": {
+                "const": "saveStore"
+              },
+              "values": {
+                "$ref": "#/components/schemas/StoreValues"
+              }
+            }
+          },
+          {
+            "properties": {
+              "command": {
+                "const": "saveMembership"
+              },
+              "values": {
+                "$ref": "#/components/schemas/MembershipValues"
+              }
+            }
+          },
+          {
+            "properties": {
+              "command": {
+                "const": "saveWarehouseScope"
+              },
+              "values": {
+                "$ref": "#/components/schemas/WarehouseScopeValues"
+              }
+            }
+          },
+          {
+            "properties": {
+              "command": {
+                "const": "saveOwnerAssignment"
+              },
+              "values": {
+                "$ref": "#/components/schemas/OwnerAssignmentValues"
+              }
+            }
+          }
+        ]
+      },
+      "RuleCommand": {
+        "type": "object",
+        "required": [
+          "command",
+          "command_id",
+          "expected_version",
+          "reason"
+        ],
+        "properties": {
+          "command_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "expected_version": {
+            "type": "integer",
+            "description": "Exact numeric version from opsConfig:snapshot. A stale value returns 409. This is not the decimal-string revision used by pending worker envelopes."
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "command": {
+            "enum": [
+              "publish",
+              "enable",
+              "retire"
+            ]
+          },
+          "rule_id": {
+            "type": "integer",
+            "description": "Native id of a previous immutable rule row, required for enable/retire."
+          },
+          "store_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "warehouse_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "family": {
+            "enum": [
+              "R1",
+              "R2",
+              "R3"
+            ]
+          },
+          "metric_version": {
+            "type": "string",
+            "minLength": 1
+          },
+          "environment": {
+            "const": "synthetic"
+          },
+          "parameters": {
+            "type": "object"
+          },
+          "recovery": {
+            "$ref": "#/components/schemas/RecoveryParameters"
+          }
+        },
+        "oneOf": [
+          {
+            "properties": {
+              "command": {
+                "const": "publish"
+              }
+            },
+            "required": [
+              "family",
+              "metric_version",
+              "parameters",
+              "recovery",
+              "environment"
+            ],
+            "anyOf": [
+              {
+                "required": [
+                  "store_id"
+                ]
+              },
+              {
+                "required": [
+                  "warehouse_id"
+                ]
+              }
+            ],
+            "oneOf": [
+              {
+                "properties": {
+                  "family": {
+                    "const": "R1"
+                  },
+                  "parameters": {
+                    "$ref": "#/components/schemas/R1Parameters"
+                  }
+                },
+                "required": [
+                  "store_id"
+                ]
+              },
+              {
+                "properties": {
+                  "family": {
+                    "const": "R2"
+                  },
+                  "parameters": {
+                    "$ref": "#/components/schemas/R2Parameters"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "family": {
+                    "const": "R3"
+                  },
+                  "parameters": {
+                    "$ref": "#/components/schemas/R3Parameters"
+                  }
+                },
+                "required": [
+                  "store_id"
+                ]
+              }
+            ]
+          },
+          {
+            "properties": {
+              "command": {
+                "enum": [
+                  "enable",
+                  "retire"
+                ]
+              }
+            },
+            "required": [
+              "rule_id"
+            ]
+          }
+        ]
       }
     }
-  }
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:18000"
+    }
+  ]
 }

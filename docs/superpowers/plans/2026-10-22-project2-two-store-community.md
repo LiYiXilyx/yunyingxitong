@@ -299,14 +299,16 @@ Makefile                            统一测试与验证入口
 
 ### T03 业务模型、页面与权限
 
-**文件：**插件`collections/`、`migrations/`、`services/scope.ts`、`src/__tests__/scope.test.ts`，`docs/nocobase-config/`。
+**实际文件：**插件`collections.js`、`migrations/`、`services/access.js`、`services/commands.js`、`src/client/index.js`，`tests/plugin/`及`docs/nocobase-config/`。
 **接口：**`assertScopeAccess(actor, scope, action): void`；`GET opsConfig:snapshot`提供版本化配置；`executeRuleCommand(command, actor) -> RuleVersionReceipt`提供主管发布入口。权限来源是成员/角色关系，不接受请求体自报角色。
 
-- [ ] 编写用例：A店运营查询B店详情/API导出被拒绝；集成账号创建任务后A店运营仍能按负责人看到；共仓任务无仓库权限不可见。
-- [ ] 创建领域表、稳定ID、业务唯一约束和配置迁移；配置4个入口及只读事件时间线。
-- [ ] 配置角色与列表范围；关键状态、负责人、已批准规则、事件记录关闭普通写入，后续只能经自研动作修改。
-- [ ] 实现规则publish/enable/retire命令：参数和作用域验证后，事务内写不可变规则版本、批准事件与配置版本。运营发布返回403；过期expected_version返回409；客户端旧快照不能回写覆盖新配置。
-- [ ] 运行`make test-plugin CASE=scope`并用4类账号执行配置验收；保存可复现配置说明，而不只截屏。
+- [x] 编写用例：A店运营查询B店详情/API导出被拒绝；集成账号创建任务后A店运营仍能按负责人看到；共仓任务无仓库权限不可见。
+- [x] 创建领域表、稳定ID、业务唯一约束和配置迁移；配置4个入口及只读事件时间线。
+- [x] 配置角色与列表范围；关键状态、负责人、已批准规则、事件记录关闭普通写入，后续只能经自研动作修改。
+- [x] 实现规则publish/enable/retire命令：参数和作用域验证后，事务内写不可变规则版本、批准事件与配置版本。运营发布返回403；过期expected_version返回409；客户端旧快照不能回写覆盖新配置。
+- [x] 运行`make test-plugin CASE=scope`并用4类账号执行配置验收；保存可复现配置说明，而不只截屏。
+
+**2026-10-22验收：**T03合成环境完成；独立前后端审查已收口，相关插件/页面/客户端25项通过。两次`make setup-t03`保持凭据内容及0600权限；四类账号经真实API验证，管理员与运营经浏览器验证菜单、列表、详情和授权撤销/恢复。详见`docs/t03-acceptance.md`。T01真实资料仍partial，T04及以后未开始。配置命令使用Noco原生登录令牌与整数配置版本，采集服务的签名信封留待后续连接阶段，不混用。
 
 ### T04 旺店通连接器
 

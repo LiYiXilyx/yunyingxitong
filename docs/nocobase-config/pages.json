@@ -1,0 +1,1793 @@
+[
+  {
+    "type": "void",
+    "x-component": "Page",
+    "x-uid": "ops_t03_tasks",
+    "properties": {
+      "main": {
+        "type": "void",
+        "x-component": "Grid",
+        "x-uid": "ops_t03_tasks_tab",
+        "x-async": true,
+        "properties": {
+          "row0": {
+            "type": "void",
+            "x-component": "Grid.Row",
+            "properties": {
+              "col": {
+                "type": "void",
+                "x-component": "Grid.Col",
+                "properties": {
+                  "block": {
+                    "type": "void",
+                    "x-component": "OpsPageNotice",
+                    "x-component-props": {
+                      "kind": "tasks"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "row1": {
+            "type": "void",
+            "x-component": "Grid.Row",
+            "properties": {
+              "col": {
+                "type": "void",
+                "x-component": "Grid.Col",
+                "properties": {
+                  "block": {
+                    "type": "void",
+                    "x-decorator": "TableBlockProvider",
+                    "x-decorator-props": {
+                      "dataSource": "main",
+                      "collection": "opsTasks",
+                      "resource": "opsTasks",
+                      "action": "list",
+                      "params": {
+                        "pageSize": 20
+                      },
+                      "rowKey": "id",
+                      "showIndex": true,
+                      "dragSort": false
+                    },
+                    "x-component": "CardItem",
+                    "x-component-props": {
+                      "title": "运营任务"
+                    },
+                    "properties": {
+                      "table": {
+                        "type": "array",
+                        "x-component": "TableV2",
+                        "x-use-component-props": "useTableBlockProps",
+                        "x-component-props": {
+                          "rowKey": "id"
+                        },
+                        "properties": {
+                          "c0": {
+                            "type": "void",
+                            "title": "名称",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "title": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsTasks.title",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c1": {
+                            "type": "void",
+                            "title": "状态",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "status": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsTasks.status",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c2": {
+                            "type": "void",
+                            "title": "范围类型",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "scope_type": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsTasks.scope_type",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c3": {
+                            "type": "void",
+                            "title": "数据用途",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "environment": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsTasks.environment",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c4": {
+                            "type": "void",
+                            "title": "处理期限",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "due_at": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsTasks.due_at",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "actions": {
+                            "type": "void",
+                            "title": "操作",
+                            "x-component": "TableV2.Column",
+                            "x-action-column": "actions",
+                            "properties": {
+                              "actions": {
+                                "type": "void",
+                                "x-component": "Space",
+                                "properties": {
+                                  "view": {
+                                    "type": "void",
+                                    "title": "查看",
+                                    "x-action": "view",
+                                    "x-component": "Action.Link",
+                                    "x-component-props": {
+                                      "openMode": "drawer"
+                                    },
+                                    "properties": {
+                                      "drawer": {
+                                        "type": "void",
+                                        "title": "运营任务详情",
+                                        "x-component": "Action.Container",
+                                        "x-component-props": {
+                                          "className": "nb-action-popup"
+                                        },
+                                        "properties": {
+                                          "details": {
+                                            "type": "void",
+                                            "x-decorator": "FormBlockProvider",
+                                            "x-decorator-props": {
+                                              "dataSource": "main",
+                                              "resource": "opsTasks",
+                                              "collection": "opsTasks",
+                                              "action": "get",
+                                              "readPretty": true,
+                                              "useParams": "{{ useParamsFromRecord }}"
+                                            },
+                                            "x-component": "CardItem",
+                                            "properties": {
+                                              "form": {
+                                                "type": "void",
+                                                "x-component": "FormV2",
+                                                "x-use-component-props": "useFormBlockProps",
+                                                "x-read-pretty": true,
+                                                "properties": {
+                                                  "title": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsTasks.title",
+                                                    "x-read-pretty": true,
+                                                    "title": "名称",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "business_id": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsTasks.business_id",
+                                                    "x-read-pretty": true,
+                                                    "title": "业务编号",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "status": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsTasks.status",
+                                                    "x-read-pretty": true,
+                                                    "title": "状态",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "scope_type": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsTasks.scope_type",
+                                                    "x-read-pretty": true,
+                                                    "title": "范围类型",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "store_id": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsTasks.store_id",
+                                                    "x-read-pretty": true,
+                                                    "title": "店铺编号",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "warehouse_id": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsTasks.warehouse_id",
+                                                    "x-read-pretty": true,
+                                                    "title": "仓库编号",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "assignee_id": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsTasks.assignee_id",
+                                                    "x-read-pretty": true,
+                                                    "title": "负责人编号",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "source": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsTasks.source",
+                                                    "x-read-pretty": true,
+                                                    "title": "来源",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "due_at": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsTasks.due_at",
+                                                    "x-read-pretty": true,
+                                                    "title": "处理期限",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "version": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsTasks.version",
+                                                    "x-read-pretty": true,
+                                                    "title": "版本",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "environment": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsTasks.environment",
+                                                    "x-read-pretty": true,
+                                                    "title": "数据用途",
+                                                    "x-decorator": "FormItem"
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "timeline": {
+                                            "type": "void",
+                                            "x-component": "OpsTimeline"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "type": "void",
+    "x-component": "Page",
+    "x-uid": "ops_t03_incidents",
+    "properties": {
+      "main": {
+        "type": "void",
+        "x-component": "Grid",
+        "x-uid": "ops_t03_incidents_tab",
+        "x-async": true,
+        "properties": {
+          "row0": {
+            "type": "void",
+            "x-component": "Grid.Row",
+            "properties": {
+              "col": {
+                "type": "void",
+                "x-component": "Grid.Col",
+                "properties": {
+                  "block": {
+                    "type": "void",
+                    "x-component": "OpsPageNotice",
+                    "x-component-props": {
+                      "kind": "incidents"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "row1": {
+            "type": "void",
+            "x-component": "Grid.Row",
+            "properties": {
+              "col": {
+                "type": "void",
+                "x-component": "Grid.Col",
+                "properties": {
+                  "block": {
+                    "type": "void",
+                    "x-decorator": "TableBlockProvider",
+                    "x-decorator-props": {
+                      "dataSource": "main",
+                      "collection": "opsIncidents",
+                      "resource": "opsIncidents",
+                      "action": "list",
+                      "params": {
+                        "pageSize": 20
+                      },
+                      "rowKey": "id",
+                      "showIndex": true,
+                      "dragSort": false
+                    },
+                    "x-component": "CardItem",
+                    "x-component-props": {
+                      "title": "异常记录"
+                    },
+                    "properties": {
+                      "table": {
+                        "type": "array",
+                        "x-component": "TableV2",
+                        "x-use-component-props": "useTableBlockProps",
+                        "x-component-props": {
+                          "rowKey": "id"
+                        },
+                        "properties": {
+                          "c0": {
+                            "type": "void",
+                            "title": "名称",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "title": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsIncidents.title",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c1": {
+                            "type": "void",
+                            "title": "状态",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "status": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsIncidents.status",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c2": {
+                            "type": "void",
+                            "title": "规则类型",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "rule_family": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsIncidents.rule_family",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c3": {
+                            "type": "void",
+                            "title": "范围类型",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "scope_type": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsIncidents.scope_type",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c4": {
+                            "type": "void",
+                            "title": "数据用途",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "environment": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsIncidents.environment",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "actions": {
+                            "type": "void",
+                            "title": "操作",
+                            "x-component": "TableV2.Column",
+                            "x-action-column": "actions",
+                            "properties": {
+                              "actions": {
+                                "type": "void",
+                                "x-component": "Space",
+                                "properties": {
+                                  "view": {
+                                    "type": "void",
+                                    "title": "查看",
+                                    "x-action": "view",
+                                    "x-component": "Action.Link",
+                                    "x-component-props": {
+                                      "openMode": "drawer"
+                                    },
+                                    "properties": {
+                                      "drawer": {
+                                        "type": "void",
+                                        "title": "异常记录详情",
+                                        "x-component": "Action.Container",
+                                        "x-component-props": {
+                                          "className": "nb-action-popup"
+                                        },
+                                        "properties": {
+                                          "details": {
+                                            "type": "void",
+                                            "x-decorator": "FormBlockProvider",
+                                            "x-decorator-props": {
+                                              "dataSource": "main",
+                                              "resource": "opsIncidents",
+                                              "collection": "opsIncidents",
+                                              "action": "get",
+                                              "readPretty": true,
+                                              "useParams": "{{ useParamsFromRecord }}"
+                                            },
+                                            "x-component": "CardItem",
+                                            "properties": {
+                                              "form": {
+                                                "type": "void",
+                                                "x-component": "FormV2",
+                                                "x-use-component-props": "useFormBlockProps",
+                                                "x-read-pretty": true,
+                                                "properties": {
+                                                  "title": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsIncidents.title",
+                                                    "x-read-pretty": true,
+                                                    "title": "名称",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "business_id": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsIncidents.business_id",
+                                                    "x-read-pretty": true,
+                                                    "title": "业务编号",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "status": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsIncidents.status",
+                                                    "x-read-pretty": true,
+                                                    "title": "状态",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "rule_family": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsIncidents.rule_family",
+                                                    "x-read-pretty": true,
+                                                    "title": "规则类型",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "store_id": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsIncidents.store_id",
+                                                    "x-read-pretty": true,
+                                                    "title": "店铺编号",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "warehouse_id": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsIncidents.warehouse_id",
+                                                    "x-read-pretty": true,
+                                                    "title": "仓库编号",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "environment": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsIncidents.environment",
+                                                    "x-read-pretty": true,
+                                                    "title": "数据用途",
+                                                    "x-decorator": "FormItem"
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "type": "void",
+    "x-component": "Page",
+    "x-uid": "ops_t03_health",
+    "properties": {
+      "main": {
+        "type": "void",
+        "x-component": "Grid",
+        "x-uid": "ops_t03_health_tab",
+        "x-async": true,
+        "properties": {
+          "row0": {
+            "type": "void",
+            "x-component": "Grid.Row",
+            "properties": {
+              "col": {
+                "type": "void",
+                "x-component": "Grid.Col",
+                "properties": {
+                  "block": {
+                    "type": "void",
+                    "x-component": "OpsPageNotice",
+                    "x-component-props": {
+                      "kind": "health"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "row1": {
+            "type": "void",
+            "x-component": "Grid.Row",
+            "properties": {
+              "col": {
+                "type": "void",
+                "x-component": "Grid.Col",
+                "properties": {
+                  "block": {
+                    "type": "void",
+                    "x-decorator": "TableBlockProvider",
+                    "x-decorator-props": {
+                      "dataSource": "main",
+                      "collection": "opsDataHealth",
+                      "resource": "opsDataHealth",
+                      "action": "list",
+                      "params": {
+                        "pageSize": 20
+                      },
+                      "rowKey": "id",
+                      "showIndex": true,
+                      "dragSort": false
+                    },
+                    "x-component": "CardItem",
+                    "x-component-props": {
+                      "title": "数据同步状态"
+                    },
+                    "properties": {
+                      "table": {
+                        "type": "array",
+                        "x-component": "TableV2",
+                        "x-use-component-props": "useTableBlockProps",
+                        "x-component-props": {
+                          "rowKey": "id"
+                        },
+                        "properties": {
+                          "c0": {
+                            "type": "void",
+                            "title": "名称",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "title": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsDataHealth.title",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c1": {
+                            "type": "void",
+                            "title": "状态",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "status": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsDataHealth.status",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c2": {
+                            "type": "void",
+                            "title": "来源",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "source": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsDataHealth.source",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c3": {
+                            "type": "void",
+                            "title": "最后成功时间",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "last_success_at": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsDataHealth.last_success_at",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c4": {
+                            "type": "void",
+                            "title": "数据用途",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "environment": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsDataHealth.environment",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "actions": {
+                            "type": "void",
+                            "title": "操作",
+                            "x-component": "TableV2.Column",
+                            "x-action-column": "actions",
+                            "properties": {
+                              "actions": {
+                                "type": "void",
+                                "x-component": "Space",
+                                "properties": {
+                                  "view": {
+                                    "type": "void",
+                                    "title": "查看",
+                                    "x-action": "view",
+                                    "x-component": "Action.Link",
+                                    "x-component-props": {
+                                      "openMode": "drawer"
+                                    },
+                                    "properties": {
+                                      "drawer": {
+                                        "type": "void",
+                                        "title": "数据同步状态详情",
+                                        "x-component": "Action.Container",
+                                        "x-component-props": {
+                                          "className": "nb-action-popup"
+                                        },
+                                        "properties": {
+                                          "details": {
+                                            "type": "void",
+                                            "x-decorator": "FormBlockProvider",
+                                            "x-decorator-props": {
+                                              "dataSource": "main",
+                                              "resource": "opsDataHealth",
+                                              "collection": "opsDataHealth",
+                                              "action": "get",
+                                              "readPretty": true,
+                                              "useParams": "{{ useParamsFromRecord }}"
+                                            },
+                                            "x-component": "CardItem",
+                                            "properties": {
+                                              "form": {
+                                                "type": "void",
+                                                "x-component": "FormV2",
+                                                "x-use-component-props": "useFormBlockProps",
+                                                "x-read-pretty": true,
+                                                "properties": {
+                                                  "title": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsDataHealth.title",
+                                                    "x-read-pretty": true,
+                                                    "title": "名称",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "status": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsDataHealth.status",
+                                                    "x-read-pretty": true,
+                                                    "title": "状态",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "source": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsDataHealth.source",
+                                                    "x-read-pretty": true,
+                                                    "title": "来源",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "store_id": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsDataHealth.store_id",
+                                                    "x-read-pretty": true,
+                                                    "title": "店铺编号",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "business_date": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsDataHealth.business_date",
+                                                    "x-read-pretty": true,
+                                                    "title": "业务日期",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "last_success_at": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsDataHealth.last_success_at",
+                                                    "x-read-pretty": true,
+                                                    "title": "最后成功时间",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "details": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsDataHealth.details",
+                                                    "x-read-pretty": true,
+                                                    "title": "数据完整性说明",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "environment": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsDataHealth.environment",
+                                                    "x-read-pretty": true,
+                                                    "title": "数据用途",
+                                                    "x-decorator": "FormItem"
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "row2": {
+            "type": "void",
+            "x-component": "Grid.Row",
+            "properties": {
+              "col": {
+                "type": "void",
+                "x-component": "Grid.Col",
+                "properties": {
+                  "block": {
+                    "type": "void",
+                    "x-decorator": "TableBlockProvider",
+                    "x-decorator-props": {
+                      "dataSource": "main",
+                      "collection": "opsDataIssues",
+                      "resource": "opsDataIssues",
+                      "action": "list",
+                      "params": {
+                        "pageSize": 20
+                      },
+                      "rowKey": "id",
+                      "showIndex": true,
+                      "dragSort": false
+                    },
+                    "x-component": "CardItem",
+                    "x-component-props": {
+                      "title": "待处理的数据问题"
+                    },
+                    "properties": {
+                      "table": {
+                        "type": "array",
+                        "x-component": "TableV2",
+                        "x-use-component-props": "useTableBlockProps",
+                        "x-component-props": {
+                          "rowKey": "id"
+                        },
+                        "properties": {
+                          "c0": {
+                            "type": "void",
+                            "title": "名称",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "title": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsDataIssues.title",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c1": {
+                            "type": "void",
+                            "title": "状态",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "status": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsDataIssues.status",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c2": {
+                            "type": "void",
+                            "title": "来源",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "source": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsDataIssues.source",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c3": {
+                            "type": "void",
+                            "title": "数据用途",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "environment": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsDataIssues.environment",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "actions": {
+                            "type": "void",
+                            "title": "操作",
+                            "x-component": "TableV2.Column",
+                            "x-action-column": "actions",
+                            "properties": {
+                              "actions": {
+                                "type": "void",
+                                "x-component": "Space",
+                                "properties": {
+                                  "view": {
+                                    "type": "void",
+                                    "title": "查看",
+                                    "x-action": "view",
+                                    "x-component": "Action.Link",
+                                    "x-component-props": {
+                                      "openMode": "drawer"
+                                    },
+                                    "properties": {
+                                      "drawer": {
+                                        "type": "void",
+                                        "title": "待处理的数据问题详情",
+                                        "x-component": "Action.Container",
+                                        "x-component-props": {
+                                          "className": "nb-action-popup"
+                                        },
+                                        "properties": {
+                                          "details": {
+                                            "type": "void",
+                                            "x-decorator": "FormBlockProvider",
+                                            "x-decorator-props": {
+                                              "dataSource": "main",
+                                              "resource": "opsDataIssues",
+                                              "collection": "opsDataIssues",
+                                              "action": "get",
+                                              "readPretty": true,
+                                              "useParams": "{{ useParamsFromRecord }}"
+                                            },
+                                            "x-component": "CardItem",
+                                            "properties": {
+                                              "form": {
+                                                "type": "void",
+                                                "x-component": "FormV2",
+                                                "x-use-component-props": "useFormBlockProps",
+                                                "x-read-pretty": true,
+                                                "properties": {
+                                                  "title": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsDataIssues.title",
+                                                    "x-read-pretty": true,
+                                                    "title": "名称",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "description": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsDataIssues.description",
+                                                    "x-read-pretty": true,
+                                                    "title": "说明",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "source": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsDataIssues.source",
+                                                    "x-read-pretty": true,
+                                                    "title": "来源",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "store_id": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsDataIssues.store_id",
+                                                    "x-read-pretty": true,
+                                                    "title": "店铺编号",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "status": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsDataIssues.status",
+                                                    "x-read-pretty": true,
+                                                    "title": "状态",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "environment": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsDataIssues.environment",
+                                                    "x-read-pretty": true,
+                                                    "title": "数据用途",
+                                                    "x-decorator": "FormItem"
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "type": "void",
+    "x-component": "Page",
+    "x-uid": "ops_t03_settings",
+    "properties": {
+      "main": {
+        "type": "void",
+        "x-component": "Grid",
+        "x-uid": "ops_t03_settings_tab",
+        "x-async": true,
+        "properties": {
+          "row0": {
+            "type": "void",
+            "x-component": "Grid.Row",
+            "properties": {
+              "col": {
+                "type": "void",
+                "x-component": "Grid.Col",
+                "properties": {
+                  "block": {
+                    "type": "void",
+                    "x-component": "OpsManagement"
+                  }
+                }
+              }
+            }
+          },
+          "row1": {
+            "type": "void",
+            "x-component": "Grid.Row",
+            "properties": {
+              "col": {
+                "type": "void",
+                "x-component": "Grid.Col",
+                "properties": {
+                  "block": {
+                    "type": "void",
+                    "x-decorator": "TableBlockProvider",
+                    "x-decorator-props": {
+                      "dataSource": "main",
+                      "collection": "opsStores",
+                      "resource": "opsStores",
+                      "action": "list",
+                      "params": {
+                        "pageSize": 20
+                      },
+                      "rowKey": "id",
+                      "showIndex": true,
+                      "dragSort": false
+                    },
+                    "x-component": "CardItem",
+                    "x-component-props": {
+                      "title": "店铺档案"
+                    },
+                    "properties": {
+                      "table": {
+                        "type": "array",
+                        "x-component": "TableV2",
+                        "x-use-component-props": "useTableBlockProps",
+                        "x-component-props": {
+                          "rowKey": "id"
+                        },
+                        "properties": {
+                          "c0": {
+                            "type": "void",
+                            "title": "名称",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "title": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsStores.title",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c1": {
+                            "type": "void",
+                            "title": "平台",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "platform": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsStores.platform",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c2": {
+                            "type": "void",
+                            "title": "站点",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "site": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsStores.site",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c3": {
+                            "type": "void",
+                            "title": "业务时区",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "timezone": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsStores.timezone",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c4": {
+                            "type": "void",
+                            "title": "数据用途",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "environment": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsStores.environment",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "actions": {
+                            "type": "void",
+                            "title": "操作",
+                            "x-component": "TableV2.Column",
+                            "x-action-column": "actions",
+                            "properties": {
+                              "actions": {
+                                "type": "void",
+                                "x-component": "Space",
+                                "properties": {
+                                  "view": {
+                                    "type": "void",
+                                    "title": "查看",
+                                    "x-action": "view",
+                                    "x-component": "Action.Link",
+                                    "x-component-props": {
+                                      "openMode": "drawer"
+                                    },
+                                    "properties": {
+                                      "drawer": {
+                                        "type": "void",
+                                        "title": "店铺档案详情",
+                                        "x-component": "Action.Container",
+                                        "x-component-props": {
+                                          "className": "nb-action-popup"
+                                        },
+                                        "properties": {
+                                          "details": {
+                                            "type": "void",
+                                            "x-decorator": "FormBlockProvider",
+                                            "x-decorator-props": {
+                                              "dataSource": "main",
+                                              "resource": "opsStores",
+                                              "collection": "opsStores",
+                                              "action": "get",
+                                              "readPretty": true,
+                                              "useParams": "{{ useParamsFromRecord }}"
+                                            },
+                                            "x-component": "CardItem",
+                                            "properties": {
+                                              "form": {
+                                                "type": "void",
+                                                "x-component": "FormV2",
+                                                "x-use-component-props": "useFormBlockProps",
+                                                "x-read-pretty": true,
+                                                "properties": {
+                                                  "title": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsStores.title",
+                                                    "x-read-pretty": true,
+                                                    "title": "名称",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "business_id": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsStores.business_id",
+                                                    "x-read-pretty": true,
+                                                    "title": "业务编号",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "connection_id": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsStores.connection_id",
+                                                    "x-read-pretty": true,
+                                                    "title": "旺店通连接代号",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "erp_store_id": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsStores.erp_store_id",
+                                                    "x-read-pretty": true,
+                                                    "title": "旺店通店铺ID",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "platform": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsStores.platform",
+                                                    "x-read-pretty": true,
+                                                    "title": "平台",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "site": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsStores.site",
+                                                    "x-read-pretty": true,
+                                                    "title": "站点",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "timezone": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsStores.timezone",
+                                                    "x-read-pretty": true,
+                                                    "title": "业务时区",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "version": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsStores.version",
+                                                    "x-read-pretty": true,
+                                                    "title": "版本",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "environment": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsStores.environment",
+                                                    "x-read-pretty": true,
+                                                    "title": "数据用途",
+                                                    "x-decorator": "FormItem"
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "row2": {
+            "type": "void",
+            "x-component": "Grid.Row",
+            "properties": {
+              "col": {
+                "type": "void",
+                "x-component": "Grid.Col",
+                "properties": {
+                  "block": {
+                    "type": "void",
+                    "x-decorator": "TableBlockProvider",
+                    "x-decorator-props": {
+                      "dataSource": "main",
+                      "collection": "opsMemberships",
+                      "resource": "opsMemberships",
+                      "action": "list",
+                      "params": {
+                        "pageSize": 20
+                      },
+                      "rowKey": "id",
+                      "showIndex": true,
+                      "dragSort": false
+                    },
+                    "x-component": "CardItem",
+                    "x-component-props": {
+                      "title": "店铺成员授权"
+                    },
+                    "properties": {
+                      "table": {
+                        "type": "array",
+                        "x-component": "TableV2",
+                        "x-use-component-props": "useTableBlockProps",
+                        "x-component-props": {
+                          "rowKey": "id"
+                        },
+                        "properties": {
+                          "c0": {
+                            "type": "void",
+                            "title": "名称",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "title": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsMemberships.title",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c1": {
+                            "type": "void",
+                            "title": "人员编号",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "user_id": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsMemberships.user_id",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c2": {
+                            "type": "void",
+                            "title": "成员职责",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "membership_role": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsMemberships.membership_role",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c3": {
+                            "type": "void",
+                            "title": "店铺编号",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "store_id": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsMemberships.store_id",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c4": {
+                            "type": "void",
+                            "title": "数据用途",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "environment": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsMemberships.environment",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "actions": {
+                            "type": "void",
+                            "title": "操作",
+                            "x-component": "TableV2.Column",
+                            "x-action-column": "actions",
+                            "properties": {
+                              "actions": {
+                                "type": "void",
+                                "x-component": "Space",
+                                "properties": {
+                                  "view": {
+                                    "type": "void",
+                                    "title": "查看",
+                                    "x-action": "view",
+                                    "x-component": "Action.Link",
+                                    "x-component-props": {
+                                      "openMode": "drawer"
+                                    },
+                                    "properties": {
+                                      "drawer": {
+                                        "type": "void",
+                                        "title": "店铺成员授权详情",
+                                        "x-component": "Action.Container",
+                                        "x-component-props": {
+                                          "className": "nb-action-popup"
+                                        },
+                                        "properties": {
+                                          "details": {
+                                            "type": "void",
+                                            "x-decorator": "FormBlockProvider",
+                                            "x-decorator-props": {
+                                              "dataSource": "main",
+                                              "resource": "opsMemberships",
+                                              "collection": "opsMemberships",
+                                              "action": "get",
+                                              "readPretty": true,
+                                              "useParams": "{{ useParamsFromRecord }}"
+                                            },
+                                            "x-component": "CardItem",
+                                            "properties": {
+                                              "form": {
+                                                "type": "void",
+                                                "x-component": "FormV2",
+                                                "x-use-component-props": "useFormBlockProps",
+                                                "x-read-pretty": true,
+                                                "properties": {
+                                                  "title": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsMemberships.title",
+                                                    "x-read-pretty": true,
+                                                    "title": "名称",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "user_id": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsMemberships.user_id",
+                                                    "x-read-pretty": true,
+                                                    "title": "人员编号",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "membership_role": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsMemberships.membership_role",
+                                                    "x-read-pretty": true,
+                                                    "title": "成员职责",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "store_id": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsMemberships.store_id",
+                                                    "x-read-pretty": true,
+                                                    "title": "店铺编号",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "environment": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsMemberships.environment",
+                                                    "x-read-pretty": true,
+                                                    "title": "数据用途",
+                                                    "x-decorator": "FormItem"
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "row3": {
+            "type": "void",
+            "x-component": "Grid.Row",
+            "properties": {
+              "col": {
+                "type": "void",
+                "x-component": "Grid.Col",
+                "properties": {
+                  "block": {
+                    "type": "void",
+                    "x-decorator": "TableBlockProvider",
+                    "x-decorator-props": {
+                      "dataSource": "main",
+                      "collection": "opsRules",
+                      "resource": "opsRules",
+                      "action": "list",
+                      "params": {
+                        "pageSize": 20
+                      },
+                      "rowKey": "id",
+                      "showIndex": true,
+                      "dragSort": false
+                    },
+                    "x-component": "CardItem",
+                    "x-component-props": {
+                      "title": "规则版本（不可原地修改）"
+                    },
+                    "properties": {
+                      "table": {
+                        "type": "array",
+                        "x-component": "TableV2",
+                        "x-use-component-props": "useTableBlockProps",
+                        "x-component-props": {
+                          "rowKey": "id"
+                        },
+                        "properties": {
+                          "c0": {
+                            "type": "void",
+                            "title": "名称",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "title": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsRules.title",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c1": {
+                            "type": "void",
+                            "title": "规则类型",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "family": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsRules.family",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c2": {
+                            "type": "void",
+                            "title": "状态",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "status": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsRules.status",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c3": {
+                            "type": "void",
+                            "title": "版本",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "version": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsRules.version",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c4": {
+                            "type": "void",
+                            "title": "数据用途",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "environment": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsRules.environment",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "actions": {
+                            "type": "void",
+                            "title": "操作",
+                            "x-component": "TableV2.Column",
+                            "x-action-column": "actions",
+                            "properties": {
+                              "actions": {
+                                "type": "void",
+                                "x-component": "Space",
+                                "properties": {
+                                  "view": {
+                                    "type": "void",
+                                    "title": "查看",
+                                    "x-action": "view",
+                                    "x-component": "Action.Link",
+                                    "x-component-props": {
+                                      "openMode": "drawer"
+                                    },
+                                    "properties": {
+                                      "drawer": {
+                                        "type": "void",
+                                        "title": "规则版本（不可原地修改）详情",
+                                        "x-component": "Action.Container",
+                                        "x-component-props": {
+                                          "className": "nb-action-popup"
+                                        },
+                                        "properties": {
+                                          "details": {
+                                            "type": "void",
+                                            "x-decorator": "FormBlockProvider",
+                                            "x-decorator-props": {
+                                              "dataSource": "main",
+                                              "resource": "opsRules",
+                                              "collection": "opsRules",
+                                              "action": "get",
+                                              "readPretty": true,
+                                              "useParams": "{{ useParamsFromRecord }}"
+                                            },
+                                            "x-component": "CardItem",
+                                            "properties": {
+                                              "form": {
+                                                "type": "void",
+                                                "x-component": "FormV2",
+                                                "x-use-component-props": "useFormBlockProps",
+                                                "x-read-pretty": true,
+                                                "properties": {
+                                                  "title": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsRules.title",
+                                                    "x-read-pretty": true,
+                                                    "title": "名称",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "business_id": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsRules.business_id",
+                                                    "x-read-pretty": true,
+                                                    "title": "业务编号",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "family": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsRules.family",
+                                                    "x-read-pretty": true,
+                                                    "title": "规则类型",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "status": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsRules.status",
+                                                    "x-read-pretty": true,
+                                                    "title": "状态",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "version": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsRules.version",
+                                                    "x-read-pretty": true,
+                                                    "title": "版本",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "store_id": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsRules.store_id",
+                                                    "x-read-pretty": true,
+                                                    "title": "店铺编号",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "warehouse_id": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsRules.warehouse_id",
+                                                    "x-read-pretty": true,
+                                                    "title": "仓库编号",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "parameters": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsRules.parameters",
+                                                    "x-read-pretty": true,
+                                                    "title": "参数",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "recovery": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsRules.recovery",
+                                                    "x-read-pretty": true,
+                                                    "title": "复查与恢复条件",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "approved_by": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsRules.approved_by",
+                                                    "x-read-pretty": true,
+                                                    "title": "批准人",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "reason": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsRules.reason",
+                                                    "x-read-pretty": true,
+                                                    "title": "原因",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "environment": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsRules.environment",
+                                                    "x-read-pretty": true,
+                                                    "title": "数据用途",
+                                                    "x-decorator": "FormItem"
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+]

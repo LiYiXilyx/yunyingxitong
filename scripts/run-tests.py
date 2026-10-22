@@ -24,14 +24,18 @@ if a.suite=='data':
         else:
             commands.append(['scripts/compose.sh','exec','-T','ops-data','sh','-c','OPS_TEST_DATABASE_URL="$OPS_DATABASE_URL" python -m pytest "$1" -q --tb=short -p no:cacheprovider','test',target])
 elif a.suite=='plugin':
-    known={'bootstrap','scope','tasks','evidence','reviews'}
-    case=a.case or 'bootstrap'
-    if case not in known: raise SystemExit(f'Unknown CASE: {case}')
-    target=ROOT/'tests/plugin'/f'{case}.test.ts'
-    if not target.exists(): raise SystemExit(f'Not implemented yet: {target.relative_to(ROOT)}')
-    commands.append(['node','--test',str(target)])
+    implemented=['bootstrap','scope','rules','pages','client']
+    known={*implemented,'tasks','evidence','reviews'}
+    if a.case and a.case not in known: raise SystemExit(f'Unknown CASE: {a.case}')
+    targets=[]
+    for case in ([a.case] if a.case else implemented):
+        target=ROOT/'tests/plugin'/('client-behavior.test.js' if case=='client' else f'{case}.test.ts')
+        if case not in implemented or not target.exists(): raise SystemExit(f'Not implemented yet: {target.relative_to(ROOT)}')
+        targets.append(str(target))
+    # Scope and rule suites share the authoritative configuration version.
+    commands.append(['node','--test','--test-concurrency=1',*targets])
 else:
-    raise SystemExit(f'{a.suite}: not implemented in T02; no tests executed')
+    raise SystemExit(f'{a.suite}: not implemented through T03; no tests executed')
 for command in commands:
     result=subprocess.call(command,cwd=ROOT,env=env)
     if result: raise SystemExit(result)
