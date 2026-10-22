@@ -1,0 +1,68 @@
+name: project2
+services:
+  postgres:
+    image: postgres:16-bookworm@sha256:d81f7b51697014367236d07ec58b54153fc28f828b72bf247fe5c7487520bcb0
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?run make bootstrap}
+      NOCO_DB_PASSWORD: ${NOCO_DB_PASSWORD:?run make bootstrap}
+      OPS_DB_PASSWORD: ${OPS_DB_PASSWORD:?run make bootstrap}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./init-db.sh:/docker-entrypoint-initdb.d/01-project2.sh:ro
+    healthcheck:
+      test: [CMD-SHELL, pg_isready -U postgres]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+  nocobase:
+    image: nocobase/nocobase:2.2.30@sha256:05b1d0244a0d0b44f5dd0f60a9ec307132232de279563406b481479593f86ba0
+    environment:
+      APP_KEY: ${APP_KEY:?run make bootstrap}
+      DB_DIALECT: postgres
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_DATABASE: nocobase
+      DB_USER: nocobase_app
+      DB_PASSWORD: ${NOCO_DB_PASSWORD:?run make bootstrap}
+      INIT_ROOT_EMAIL: ${INIT_ROOT_EMAIL:?run make bootstrap}
+      INIT_ROOT_PASSWORD: ${INIT_ROOT_PASSWORD:?run make bootstrap}
+      INIT_ROOT_NICKNAME: 项目2管理员
+      TZ: UTC
+    ports:
+      - 127.0.0.1:13000:80
+    volumes:
+      - nocobase-storage:/app/nocobase/storage
+      - ../plugins/nocobase-plugin-ops:/app/nocobase/node_modules/@project2/plugin-ops:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1/api/app:getInfo').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 60s
+    restart: unless-stopped
+  ops-data:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.ops-data
+    image: project2/ops-data:0.1.0
+    environment:
+      OPS_DATABASE_URL: postgresql://ops_app:${OPS_DB_PASSWORD:?run make bootstrap}@postgres:5432/ops
+      OPS_CONTRACT_SCHEMA: /workspace/contracts/ops-v1.schema.json
+    ports:
+      - 127.0.0.1:18000:8000
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/ready', timeout=4)"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+volumes:
+  postgres-data:
+  nocobase-storage:

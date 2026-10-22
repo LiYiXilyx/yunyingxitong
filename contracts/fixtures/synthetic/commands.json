@@ -1,0 +1,139 @@
+[
+  {
+    "schema_version": "1",
+    "command_id": "00000000-0000-4000-8000-000000000001",
+    "binding_version": "1",
+    "occurred_at": "2026-10-22T00:00:00+08:00",
+    "payload": {
+      "kind": "TaskCommand",
+      "task_id": "00000000-0000-4000-8000-000000000001",
+      "action": "start",
+      "expected_version": "1",
+      "reason": null,
+      "assignee_id": null,
+      "evidence_refs": []
+    },
+    "payload_hash": "03d401327c3e1753c8f40127ca5d8eda7251a5fda2b3daa51eef8813cee3a6a7"
+  },
+  {
+    "schema_version": "1",
+    "command_id": "00000000-0000-4000-8000-000000000002",
+    "binding_version": "1",
+    "occurred_at": "2026-10-22T00:00:00+08:00",
+    "payload": {
+      "kind": "EvaluationEnvelope",
+      "evaluation_id": "00000000-0000-4000-8000-000000000001",
+      "batch_id": "00000000-0000-4000-8000-000000000001",
+      "rule_version": "1",
+      "metric_version": "1",
+      "scope": {
+        "store_ids": [
+          "00000000-0000-4000-8000-000000000001"
+        ],
+        "warehouse_ids": []
+      },
+      "incident_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "evaluation_window_end": "2026-10-22T00:00:00+08:00",
+      "metric_revision": "1",
+      "outcome": "insufficient",
+      "evidence_refs": []
+    },
+    "payload_hash": "4e5aefcf466267b0b345eb7253579ff27566bfcc9ce7ce8e7ceeb22d07d9ea16"
+  },
+  {
+    "schema_version": "1",
+    "command_id": "00000000-0000-4000-8000-000000000003",
+    "binding_version": "1",
+    "occurred_at": "2026-10-22T00:00:00+08:00",
+    "payload": {
+      "kind": "ReviewRequest",
+      "review_id": "00000000-0000-4000-8000-000000000001",
+      "action_attempt_id": "00000000-0000-4000-8000-000000000001",
+      "review_generation": "1",
+      "attempt_version": "1",
+      "rule_version": "1",
+      "metric_version": "1",
+      "scope": {
+        "store_ids": [
+          "00000000-0000-4000-8000-000000000001"
+        ],
+        "warehouse_ids": []
+      },
+      "baseline_window": {
+        "start": "2026-10-22T00:00:00+08:00",
+        "end": "2026-10-23T00:00:00+08:00"
+      },
+      "observation_window": {
+        "start": "2026-10-22T00:00:00+08:00",
+        "end": "2026-10-23T00:00:00+08:00"
+      }
+    },
+    "payload_hash": "e988d7a4e72faa699ef056adec27137a459fdce30347631e7c2addf1d2d027b8"
+  },
+  {
+    "schema_version": "1",
+    "command_id": "00000000-0000-4000-8000-000000000004",
+    "binding_version": "1",
+    "occurred_at": "2026-10-22T00:00:00+08:00",
+    "payload": {
+      "kind": "ReviewResult",
+      "review_id": "00000000-0000-4000-8000-000000000001",
+      "action_attempt_id": "00000000-0000-4000-8000-000000000001",
+      "review_generation": "1",
+      "attempt_version": "1",
+      "result": "insufficient",
+      "actual_window": {
+        "start": "2026-10-22T00:00:00+08:00",
+        "end": "2026-10-23T00:00:00+08:00"
+      },
+      "evidence_refs": []
+    },
+    "payload_hash": "e7aaa6d31fc6bd9b8f4fec7885375f8bb4f0f9e4d206ea877f5ec8c3398eac09"
+  },
+  {
+    "schema_version": "1",
+    "command_id": "00000000-0000-4000-8000-000000000005",
+    "binding_version": "1",
+    "occurred_at": "2026-10-22T00:00:00+08:00",
+    "payload": {
+      "kind": "HealthEnvelope",
+      "scope": {
+        "store_ids": [
+          "00000000-0000-4000-8000-000000000001"
+        ],
+        "warehouse_ids": []
+      },
+      "data_type": "orders",
+      "health_revision": "1",
+      "last_attempt_at": "2026-10-22T00:00:00+08:00",
+      "last_success_at": null,
+      "expected_window": {
+        "start": "2026-10-22T00:00:00+08:00",
+        "end": "2026-10-23T00:00:00+08:00"
+      },
+      "freshness_deadline": "2026-10-22T00:00:00+08:00",
+      "status": "needs_user",
+      "missing_fields": [
+        "synthetic_field"
+      ],
+      "error_class": "synthetic_missing"
+    },
+    "payload_hash": "57cfafc2234be0a19080de3201c0dca90047cc5166af9f39dd69fa1c4d8a3624"
+  },
+  {
+    "schema_version": "1",
+    "command_id": "00000000-0000-4000-8000-000000000006",
+    "binding_version": "9007199254740993",
+    "occurred_at": "2026-10-22T00:00:00+08:00",
+    "payload": {
+      "kind": "TaskCommand",
+      "task_id": "00000000-0000-4000-8000-000000000001",
+      "action": "start",
+      "expected_version": "1",
+      "reason": "合成示例：人工确认 😀 / \\ 换行\n",
+      "assignee_id": null,
+      "evidence_refs": []
+    },
+    "payload_hash": "40ba241028e483777c89e11bdd8cb85be3e02011135be91ed3e5f8c686b7123f"
+  }
+]

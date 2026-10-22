@@ -1,0 +1,789 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Ops v1 contract draft",
+    "version": "0.1.0",
+    "description": "T02 implements health routes only. All business operations are drafts marked pending. Hash is SHA256 over the entire envelope except payload_hash, recursively sorted ASCII keys and compact UTF-8 JSON; all numeric quantities use decimal strings."
+  },
+  "paths": {
+    "/api/opsConfig:snapshot": {
+      "get": {
+        "x-implementation": "pending",
+        "description": "Design contract only. Not registered by the T02 FastAPI application. Authentication, scope enforcement, durable Inbox/Outbox and business effects remain pending.",
+        "security": [
+          {
+            "internalBearer": []
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid structure or hash",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No authorized scope; invisible object queries use the same policy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Command ID content conflict or stale expected_version",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Planned response; not implemented in T02."
+          }
+        },
+        "x-contract-status": "payload-details-pending"
+      }
+    },
+    "/api/opsRule:command": {
+      "post": {
+        "x-implementation": "pending",
+        "description": "Design contract only. Not registered by the T02 FastAPI application. Authentication, scope enforcement, durable Inbox/Outbox and business effects remain pending.",
+        "security": [
+          {
+            "internalBearer": []
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid structure or hash",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No authorized scope; invisible object queries use the same policy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Command ID content conflict or stale expected_version",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Planned response; not implemented in T02."
+          }
+        },
+        "x-contract-status": "payload-details-pending"
+      }
+    },
+    "/api/opsDataHealth:ingest": {
+      "post": {
+        "x-implementation": "pending",
+        "description": "Design contract only. Not registered by the T02 FastAPI application. Authentication, scope enforcement, durable Inbox/Outbox and business effects remain pending.",
+        "security": [
+          {
+            "internalBearer": []
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid structure or hash",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No authorized scope; invisible object queries use the same policy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Command ID content conflict or stale expected_version",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Planned response; not implemented in T02."
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "ops-v1.schema.json"
+              }
+            }
+          }
+        },
+        "x-payload-definition": "HealthEnvelope"
+      }
+    },
+    "/api/opsInspection:ingest": {
+      "post": {
+        "x-implementation": "pending",
+        "description": "Design contract only. Not registered by the T02 FastAPI application. Authentication, scope enforcement, durable Inbox/Outbox and business effects remain pending.",
+        "security": [
+          {
+            "internalBearer": []
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid structure or hash",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No authorized scope; invisible object queries use the same policy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Command ID content conflict or stale expected_version",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Planned response; not implemented in T02."
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "ops-v1.schema.json"
+              }
+            }
+          }
+        },
+        "x-payload-definition": "EvaluationEnvelope"
+      }
+    },
+    "/api/opsTask:command": {
+      "post": {
+        "x-implementation": "pending",
+        "description": "Design contract only. Not registered by the T02 FastAPI application. Authentication, scope enforcement, durable Inbox/Outbox and business effects remain pending.",
+        "security": [
+          {
+            "internalBearer": []
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid structure or hash",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No authorized scope; invisible object queries use the same policy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Command ID content conflict or stale expected_version",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Planned response; not implemented in T02."
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "ops-v1.schema.json"
+              }
+            }
+          }
+        },
+        "x-payload-definition": "TaskCommand"
+      }
+    },
+    "/api/opsEvidence:upload": {
+      "post": {
+        "x-implementation": "pending",
+        "description": "Design contract only. Not registered by the T02 FastAPI application. Authentication, scope enforcement, durable Inbox/Outbox and business effects remain pending.",
+        "security": [
+          {
+            "internalBearer": []
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid structure or hash",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No authorized scope; invisible object queries use the same policy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Command ID content conflict or stale expected_version",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Planned response; not implemented in T02."
+          }
+        },
+        "x-contract-status": "payload-details-pending"
+      }
+    },
+    "/api/opsEvidence:download": {
+      "get": {
+        "x-implementation": "pending",
+        "description": "Design contract only. Not registered by the T02 FastAPI application. Authentication, scope enforcement, durable Inbox/Outbox and business effects remain pending.",
+        "security": [
+          {
+            "internalBearer": []
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid structure or hash",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No authorized scope; invisible object queries use the same policy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Command ID content conflict or stale expected_version",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Planned response; not implemented in T02."
+          }
+        },
+        "x-contract-status": "payload-details-pending"
+      }
+    },
+    "/v1/review-requests": {
+      "post": {
+        "x-implementation": "pending",
+        "description": "Design contract only. Not registered by the T02 FastAPI application. Authentication, scope enforcement, durable Inbox/Outbox and business effects remain pending.",
+        "security": [
+          {
+            "internalBearer": []
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid structure or hash",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No authorized scope; invisible object queries use the same policy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Command ID content conflict or stale expected_version",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Planned response only; 202 means durable receipt accepted, not review completion."
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "ops-v1.schema.json"
+              }
+            }
+          }
+        },
+        "x-payload-definition": "ReviewRequest"
+      }
+    },
+    "/api/opsReview:ingest": {
+      "post": {
+        "x-implementation": "pending",
+        "description": "Design contract only. Not registered by the T02 FastAPI application. Authentication, scope enforcement, durable Inbox/Outbox and business effects remain pending.",
+        "security": [
+          {
+            "internalBearer": []
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid structure or hash",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No authorized scope; invisible object queries use the same policy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Command ID content conflict or stale expected_version",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Planned response; not implemented in T02."
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "ops-v1.schema.json"
+              }
+            }
+          }
+        },
+        "x-payload-definition": "ReviewResult"
+      }
+    },
+    "/v1/worker/jobs:claim": {
+      "post": {
+        "x-implementation": "pending",
+        "description": "Design contract only. Not registered by the T02 FastAPI application. Authentication, scope enforcement, durable Inbox/Outbox and business effects remain pending.",
+        "security": [
+          {
+            "internalBearer": []
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid structure or hash",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No authorized scope; invisible object queries use the same policy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Command ID content conflict or stale expected_version",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Planned response; not implemented in T02."
+          }
+        },
+        "x-contract-status": "payload-details-pending"
+      }
+    },
+    "/v1/worker/jobs/{id}:heartbeat": {
+      "post": {
+        "x-implementation": "pending",
+        "description": "Design contract only. Not registered by the T02 FastAPI application. Authentication, scope enforcement, durable Inbox/Outbox and business effects remain pending.",
+        "security": [
+          {
+            "internalBearer": []
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid structure or hash",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No authorized scope; invisible object queries use the same policy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Command ID content conflict or stale expected_version",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Planned response; not implemented in T02."
+          }
+        },
+        "x-contract-status": "payload-details-pending",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ]
+      }
+    },
+    "/v1/worker/batches:commit": {
+      "post": {
+        "x-implementation": "pending",
+        "description": "Design contract only. Not registered by the T02 FastAPI application. Authentication, scope enforcement, durable Inbox/Outbox and business effects remain pending.",
+        "security": [
+          {
+            "internalBearer": []
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid structure or hash",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No authorized scope; invisible object queries use the same policy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Command ID content conflict or stale expected_version",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Planned response; not implemented in T02."
+          }
+        },
+        "x-contract-status": "payload-details-pending"
+      }
+    },
+    "/health/live": {
+      "get": {
+        "x-implementation": "implemented",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Process alive"
+          }
+        }
+      }
+    },
+    "/health/ready": {
+      "get": {
+        "x-implementation": "implemented",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "OPS_DATABASE_URL PostgreSQL SELECT 1 succeeded"
+          },
+          "503": {
+            "description": "Database missing or unavailable; response never contains connection details"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "internalBearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Planned worker/service identity with per-binding and scope authorization; token alone is not scope authorization."
+      }
+    }
+  }
+}

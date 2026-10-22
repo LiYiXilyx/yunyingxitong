@@ -1,0 +1,482 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ops.local/contracts/ops-v1.schema.json",
+  "title": "Ops v1 pending business command contract",
+  "description": "T02 contract only. No business endpoint or durable receipt is implemented. All numeric values are decimal strings. Hash covers the entire command except payload_hash; object keys sorted, compact UTF-8 JSON.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1"
+    },
+    "command_id": {
+      "$ref": "#/$defs/UUID"
+    },
+    "payload_hash": {
+      "$ref": "#/$defs/Hash"
+    },
+    "binding_version": {
+      "$ref": "#/$defs/Revision"
+    },
+    "occurred_at": {
+      "$ref": "#/$defs/Timestamp"
+    },
+    "payload": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/TaskCommand"
+        },
+        {
+          "$ref": "#/$defs/EvaluationEnvelope"
+        },
+        {
+          "$ref": "#/$defs/ReviewRequest"
+        },
+        {
+          "$ref": "#/$defs/ReviewResult"
+        },
+        {
+          "$ref": "#/$defs/HealthEnvelope"
+        }
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "command_id",
+    "payload_hash",
+    "binding_version",
+    "occurred_at",
+    "payload"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "UUID": {
+      "type": "string",
+      "format": "uuid",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}(?![\\s\\S])"
+    },
+    "Timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^(?!0000)[0-9]{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:[0-5]\\d(?:\\.\\d{1,6})?(?:Z|[+-]\\d{2}:\\d{2})(?![\\s\\S])"
+    },
+    "Revision": {
+      "type": "string",
+      "pattern": "^[1-9][0-9]*(?![\\s\\S])"
+    },
+    "Money": {
+      "type": "string",
+      "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?(?![\\s\\S])"
+    },
+    "Hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+    },
+    "TaskState": {
+      "type": "string",
+      "enum": [
+        "unassigned",
+        "todo",
+        "doing",
+        "submitted",
+        "awaiting_review",
+        "pending_close",
+        "closed",
+        "blocked",
+        "reopened",
+        "cancelled"
+      ]
+    },
+    "CollectionState": {
+      "type": "string",
+      "enum": [
+        "succeeded",
+        "partial",
+        "needs_user",
+        "failed"
+      ]
+    },
+    "Scope": {
+      "type": "object",
+      "properties": {
+        "store_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/UUID"
+          },
+          "uniqueItems": true
+        },
+        "warehouse_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/UUID"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "store_ids",
+        "warehouse_ids"
+      ],
+      "additionalProperties": false
+    },
+    "Window": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "$ref": "#/$defs/Timestamp"
+        },
+        "end": {
+          "$ref": "#/$defs/Timestamp"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "additionalProperties": false
+    },
+    "EvidenceRef": {
+      "type": "object",
+      "properties": {
+        "evidence_id": {
+          "$ref": "#/$defs/UUID"
+        },
+        "sha256": {
+          "$ref": "#/$defs/Hash"
+        },
+        "storage_key": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "evidence_id",
+        "sha256",
+        "storage_key"
+      ],
+      "additionalProperties": false
+    },
+    "TaskCommand": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "TaskCommand"
+        },
+        "task_id": {
+          "$ref": "#/$defs/UUID"
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "claim",
+            "start",
+            "submit",
+            "accept",
+            "reject",
+            "reassign",
+            "block",
+            "resume",
+            "confirm_close",
+            "cancel"
+          ]
+        },
+        "expected_version": {
+          "$ref": "#/$defs/Revision"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "assignee_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/UUID"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/EvidenceRef"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "kind",
+        "task_id",
+        "action",
+        "expected_version",
+        "reason",
+        "assignee_id",
+        "evidence_refs"
+      ],
+      "additionalProperties": false
+    },
+    "EvaluationEnvelope": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "EvaluationEnvelope"
+        },
+        "evaluation_id": {
+          "$ref": "#/$defs/UUID"
+        },
+        "batch_id": {
+          "$ref": "#/$defs/UUID"
+        },
+        "rule_version": {
+          "$ref": "#/$defs/Revision"
+        },
+        "metric_version": {
+          "$ref": "#/$defs/Revision"
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "incident_fingerprint": {
+          "$ref": "#/$defs/Hash"
+        },
+        "evaluation_window_end": {
+          "$ref": "#/$defs/Timestamp"
+        },
+        "metric_revision": {
+          "$ref": "#/$defs/Revision"
+        },
+        "outcome": {
+          "type": "string",
+          "enum": [
+            "normal",
+            "abnormal",
+            "insufficient"
+          ]
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/EvidenceRef"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "kind",
+        "evaluation_id",
+        "batch_id",
+        "rule_version",
+        "metric_version",
+        "scope",
+        "incident_fingerprint",
+        "evaluation_window_end",
+        "metric_revision",
+        "outcome",
+        "evidence_refs"
+      ],
+      "additionalProperties": false
+    },
+    "ReviewRequest": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "ReviewRequest"
+        },
+        "review_id": {
+          "$ref": "#/$defs/UUID"
+        },
+        "action_attempt_id": {
+          "$ref": "#/$defs/UUID"
+        },
+        "review_generation": {
+          "$ref": "#/$defs/Revision"
+        },
+        "attempt_version": {
+          "$ref": "#/$defs/Revision"
+        },
+        "rule_version": {
+          "$ref": "#/$defs/Revision"
+        },
+        "metric_version": {
+          "$ref": "#/$defs/Revision"
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "baseline_window": {
+          "$ref": "#/$defs/Window"
+        },
+        "observation_window": {
+          "$ref": "#/$defs/Window"
+        }
+      },
+      "required": [
+        "kind",
+        "review_id",
+        "action_attempt_id",
+        "review_generation",
+        "attempt_version",
+        "rule_version",
+        "metric_version",
+        "scope",
+        "baseline_window",
+        "observation_window"
+      ],
+      "additionalProperties": false
+    },
+    "ReviewResult": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "ReviewResult"
+        },
+        "review_id": {
+          "$ref": "#/$defs/UUID"
+        },
+        "action_attempt_id": {
+          "$ref": "#/$defs/UUID"
+        },
+        "review_generation": {
+          "$ref": "#/$defs/Revision"
+        },
+        "attempt_version": {
+          "$ref": "#/$defs/Revision"
+        },
+        "result": {
+          "type": "string",
+          "enum": [
+            "recovered",
+            "not_recovered",
+            "insufficient"
+          ]
+        },
+        "actual_window": {
+          "$ref": "#/$defs/Window"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/EvidenceRef"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "kind",
+        "review_id",
+        "action_attempt_id",
+        "review_generation",
+        "attempt_version",
+        "result",
+        "actual_window",
+        "evidence_refs"
+      ],
+      "additionalProperties": false
+    },
+    "HealthEnvelope": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "HealthEnvelope"
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "data_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "health_revision": {
+          "$ref": "#/$defs/Revision"
+        },
+        "last_attempt_at": {
+          "$ref": "#/$defs/Timestamp"
+        },
+        "last_success_at": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "expected_window": {
+          "$ref": "#/$defs/Window"
+        },
+        "freshness_deadline": {
+          "$ref": "#/$defs/Timestamp"
+        },
+        "status": {
+          "$ref": "#/$defs/CollectionState"
+        },
+        "missing_fields": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "error_class": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "scope",
+        "data_type",
+        "health_revision",
+        "last_attempt_at",
+        "last_success_at",
+        "expected_window",
+        "freshness_deadline",
+        "status",
+        "missing_fields",
+        "error_class"
+      ],
+      "additionalProperties": false
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "enum": [
+            "invalid_command",
+            "unauthenticated",
+            "forbidden",
+            "conflict"
+          ]
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "@project2/plugin-ops",
+  "version": "0.1.0",
+  "displayName": "项目2：运营服务基础连接",
+  "description": "T02 bootstrap only. No shop access or business task actions yet.",
+  "license": "UNLICENSED",
+  "main": "server.js",
+  "peerDependencies": {"@nocobase/server": "2.2.30"}
+}

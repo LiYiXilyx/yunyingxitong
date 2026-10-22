@@ -1,0 +1,18 @@
+[
+  {
+    "schema_version": "1",
+    "command_id": "00000000-0000-4000-8000-000000000001",
+    "binding_version": "1",
+    "occurred_at": "0000-01-01T00:00:00Z",
+    "payload": {
+      "kind": "TaskCommand",
+      "task_id": "00000000-0000-4000-8000-000000000001",
+      "action": "start",
+      "expected_version": "1",
+      "reason": null,
+      "assignee_id": null,
+      "evidence_refs": []
+    },
+    "payload_hash": "01b1b74133a1f5710fb4fecdbc6394b7da13b893bb1376dbbeaff8ffaf5b8c39"
+  }
+]

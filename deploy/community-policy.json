@@ -1,0 +1,684 @@
+{
+  "schema_version": 1,
+  "source_repository": "https://github.com/nocobase/nocobase",
+  "source_tag": "v2.2.30",
+  "source_commit": "d7bbafe86257cc3ccd33dd03930e09468b96d7c1",
+  "source_tree_url": "https://api.github.com/repos/nocobase/nocobase/git/trees/v2.2.30?recursive=1",
+  "source_archive_sha256": "354b00df4479dcc446efa43e7dfdab84b17a7c85f41f2074abe7be0781b9791f",
+  "image": "nocobase/nocobase:2.2.30",
+  "image_digest": "sha256:05b1d0244a0d0b44f5dd0f60a9ec307132232de279563406b481479593f86ba0",
+  "official_plugins": {
+    "@nocobase/plugin-acl": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-acl/package.json",
+      "package_json_sha256": "76b320387277ab8f1cbdec3faaae381c89551f3b46f6bf97442b0b9b3763f4c0"
+    },
+    "@nocobase/plugin-action-bulk-edit": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-action-bulk-edit/package.json",
+      "package_json_sha256": "9fd02008f7a4041f3e497009ae7dd47709e861b56a586835e9747ab2154f3bbc"
+    },
+    "@nocobase/plugin-action-bulk-update": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-action-bulk-update/package.json",
+      "package_json_sha256": "8abb759e228ade0134c5070ae089382598361842d07c94cff4ecbdaa6ace18fb"
+    },
+    "@nocobase/plugin-action-custom-request": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-action-custom-request/package.json",
+      "package_json_sha256": "7eb3f652916030b114be35d9a1e6262bd6b6c7090e6774525b90a3335f8b9bac"
+    },
+    "@nocobase/plugin-action-duplicate": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-action-duplicate/package.json",
+      "package_json_sha256": "802d5c56b187ea9fdb7cd5f982c1e186e9e366548b208ad4adf39c85326ca272"
+    },
+    "@nocobase/plugin-action-export": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-action-export/package.json",
+      "package_json_sha256": "b26625b6cd07e49bb1bb51f2e59b2cf5f1685ca403da8689d08a2b79353daf38"
+    },
+    "@nocobase/plugin-action-import": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-action-import/package.json",
+      "package_json_sha256": "44790460f8f1378c5e037a0ee7d495ce5b049554f531528605d860c711156948"
+    },
+    "@nocobase/plugin-action-print": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-action-print/package.json",
+      "package_json_sha256": "1fa8e5d856de2a156574ea707d0777125cf85fd2659937beb83cae6468118a8f"
+    },
+    "@nocobase/plugin-ai": {
+      "version": "2.2.30",
+      "license": null,
+      "source_path": "packages/plugins/@nocobase/plugin-ai/package.json",
+      "package_json_sha256": "5f43ae41b0ab61ee63d0464cd4303df16dc981571c7918e95acab67a5df74bff",
+      "license_fallback": "repository-root-package-json"
+    },
+    "@nocobase/plugin-ai-gigachat": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-ai-gigachat/package.json",
+      "package_json_sha256": "371095e95f1e6db5166610a4f2847010412da601f0197c7e59c4cd569d36c98e"
+    },
+    "@nocobase/plugin-api-doc": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-api-doc/package.json",
+      "package_json_sha256": "fb3c0526f92abf1244ab23c9c43258f932f10db953f154dc60a3d84697e871a5"
+    },
+    "@nocobase/plugin-api-keys": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-api-keys/package.json",
+      "package_json_sha256": "78e94527443bdf0b286ba67ba9863a8bb8c92e2979c79e02fd95d63e6d0ed489"
+    },
+    "@nocobase/plugin-async-task-manager": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-async-task-manager/package.json",
+      "package_json_sha256": "1d218435292548b514c721cd2cb9b83a0f825a4e9f69f02583f5def2b8240f3a"
+    },
+    "@nocobase/plugin-audit-logs": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-audit-logs/package.json",
+      "package_json_sha256": "d458f7606915667cc68911d010ca4b349242e7f59ce91208ef98e74f743cdfe8"
+    },
+    "@nocobase/plugin-auth": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-auth/package.json",
+      "package_json_sha256": "f536fe82dddb975f740b1b01648b01d7129242271a0c512f69f9d8d77c974194"
+    },
+    "@nocobase/plugin-auth-sms": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-auth-sms/package.json",
+      "package_json_sha256": "89fe1db6fb0bed935f3943a51ece8d910c81d3f680ed5b1116e324c4b089899e"
+    },
+    "@nocobase/plugin-backup-restore": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-backup-restore/package.json",
+      "package_json_sha256": "877414b2879db88a43348f868dc73e58868c3772c83f881628b366cff734e98a"
+    },
+    "@nocobase/plugin-backups": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-backups/package.json",
+      "package_json_sha256": "0430fda257393b6154406c6831a35e26960724546c9cdecf70e626d2f89cc570"
+    },
+    "@nocobase/plugin-block-comment": {
+      "version": "2.2.30",
+      "license": null,
+      "source_path": "packages/plugins/@nocobase/plugin-block-comment/package.json",
+      "package_json_sha256": "549c71c9a90826bdea41f988cb7e98464d4ffbfed0f518debfe40df6716ee509",
+      "license_fallback": "repository-root-package-json"
+    },
+    "@nocobase/plugin-block-grid-card": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-block-grid-card/package.json",
+      "package_json_sha256": "14824d1a8b1fa557e8eccc4d022393955298130ef19afa6000ce53537fdd25e9"
+    },
+    "@nocobase/plugin-block-iframe": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-block-iframe/package.json",
+      "package_json_sha256": "d2677e31fda41e55a1ad6318b76249a9fd4811aaa2af6b26fd2287d13d46e90f"
+    },
+    "@nocobase/plugin-block-list": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-block-list/package.json",
+      "package_json_sha256": "a7a4283ccae3b45acd7bb105213097ea63f948b34fbbde3d57460f2aad5571f9"
+    },
+    "@nocobase/plugin-block-markdown": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-block-markdown/package.json",
+      "package_json_sha256": "238ed5f2ddad4d980bc91c23b252600f03952a94e7210cd27e6a53402480de1b"
+    },
+    "@nocobase/plugin-block-multi-step-form": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-block-multi-step-form/package.json",
+      "package_json_sha256": "7ba714cbdc0fccfbc3fe4053301074dee2aef80a970b5eafbe7bf0fa051b866c"
+    },
+    "@nocobase/plugin-block-template": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-block-template/package.json",
+      "package_json_sha256": "1ec01bac9d289b741b71fb855b2094125cb079c5bec91e0cec56c148e2ad8d38"
+    },
+    "@nocobase/plugin-block-tree": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-block-tree/package.json",
+      "package_json_sha256": "2006633caa93002f93c95378d9ec785cca14dd1ea05c0083e783ea6a53f596c1"
+    },
+    "@nocobase/plugin-block-workbench": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-block-workbench/package.json",
+      "package_json_sha256": "f313fb3019223b3a39e084577aafe6552d0ac8967722e637367b371296cbce71"
+    },
+    "@nocobase/plugin-calendar": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-calendar/package.json",
+      "package_json_sha256": "e651f2ea40b0e554319e0e7bcd12ef3b0765d200b788e459ecc4a01ebdd93e18"
+    },
+    "@nocobase/plugin-charts": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-charts/package.json",
+      "package_json_sha256": "8c9e37088b9fc96c7c18485d799d02c7054c5c9bb7033144569d1683ba56ee7e"
+    },
+    "@nocobase/plugin-client": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-client/package.json",
+      "package_json_sha256": "8746171a4911130b8871a91dd44873df43d3245563a891098377f8567a40dc45"
+    },
+    "@nocobase/plugin-collection-fdw": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-collection-fdw/package.json",
+      "package_json_sha256": "73817ae26dc262959f1c864b90cc1881694b5f68566e16a6a3a2442d296abd27"
+    },
+    "@nocobase/plugin-collection-sql": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-collection-sql/package.json",
+      "package_json_sha256": "3d9caef6d98a75cd94cadbaa07e9abe1876913b8aedbabeffb4c72dd9edd5cf2"
+    },
+    "@nocobase/plugin-collection-tree": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-collection-tree/package.json",
+      "package_json_sha256": "c01cef7a3d044b86f5193d9480e11d7ef7ab927a907b33c5376d48be43819056"
+    },
+    "@nocobase/plugin-comments": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-comments/package.json",
+      "package_json_sha256": "1361f8e911979a2485dc0cacae6fec0bf500ab98e7f57d53da4175f76166543c"
+    },
+    "@nocobase/plugin-custom-variables": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-custom-variables/package.json",
+      "package_json_sha256": "c5722397f700f19bf65e87e83d01ea7fb0e859df1a11389782297b274d9eb612"
+    },
+    "@nocobase/plugin-data-source-main": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-data-source-main/package.json",
+      "package_json_sha256": "e2d775aff7015bc4920c35c6804b2f636aa8f2267da93c66c6135f6e2b23bfc8"
+    },
+    "@nocobase/plugin-data-source-manager": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-data-source-manager/package.json",
+      "package_json_sha256": "7a37f8855a8aa40311254aed25218359dcfb414f7919ab2b3e48dadad97725b7"
+    },
+    "@nocobase/plugin-data-visualization": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-data-visualization/package.json",
+      "package_json_sha256": "7f07f4043bdcd5ca8f4ef787202734e11a46aa49bcfe0cb8664119cbb2a1e612"
+    },
+    "@nocobase/plugin-data-visualization-echarts": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-data-visualization-echarts/package.json",
+      "package_json_sha256": "8fd053e409d227df04c12002e6a40c5be939f745f71c287c78801d315be8582c"
+    },
+    "@nocobase/plugin-departments": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-departments/package.json",
+      "package_json_sha256": "f4cc755d1e65ad955ce42d7de1a4edd799814f66c949df4a3e43eefab3f5d202"
+    },
+    "@nocobase/plugin-disable-pm-add": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-disable-pm-add/package.json",
+      "package_json_sha256": "cf80697b1e9b362c82ea74bb7585b60e9cc8206ab5911f5891f4fe64655852f6"
+    },
+    "@nocobase/plugin-embed": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-embed/package.json",
+      "package_json_sha256": "2a31f6cab17a8f3826ae41592a756f87f2d9d5ada693ff7301eda2b35ef01d6f"
+    },
+    "@nocobase/plugin-environment-variables": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-environment-variables/package.json",
+      "package_json_sha256": "e129a8f49bb888385038dd1aa0370fc9ad457991b5a153eada1875ded2dd302c"
+    },
+    "@nocobase/plugin-error-handler": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-error-handler/package.json",
+      "package_json_sha256": "92ad27d86e1a37611ba2e7cbe20480c26e7d706a4186a1cb86461f6308e5e844"
+    },
+    "@nocobase/plugin-field-attachment-url": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-field-attachment-url/package.json",
+      "package_json_sha256": "b22df54bc461869492b70b7c21e4895fb365a0acb674f7e2f306bbc4c40b4fba"
+    },
+    "@nocobase/plugin-field-china-region": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-field-china-region/package.json",
+      "package_json_sha256": "5cee97d2445ad492f8d4426ac62e4d8dcae439802987d1d527ae5480b96fc037"
+    },
+    "@nocobase/plugin-field-code": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-field-code/package.json",
+      "package_json_sha256": "72109ef53180ae99bdc927216d7fb8a709ef4e978ea7f24f23b7b65840686dde"
+    },
+    "@nocobase/plugin-field-formula": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-field-formula/package.json",
+      "package_json_sha256": "0db69a5a3e5e26410810d259bdc6c79fbf9946900e0d72d325b60833e93ecc7b"
+    },
+    "@nocobase/plugin-field-m2m-array": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-field-m2m-array/package.json",
+      "package_json_sha256": "1e1bf4514d713dc9c49266f835b81f004ad6c709f7720670c71b1bc260b67ae8"
+    },
+    "@nocobase/plugin-field-markdown-vditor": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-field-markdown-vditor/package.json",
+      "package_json_sha256": "9b45df4cbdde2909fa354a2cb4ca574c6498d0bd8e471cbdfb39bc1aee5c553b"
+    },
+    "@nocobase/plugin-field-sequence": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-field-sequence/package.json",
+      "package_json_sha256": "f9c0f88e58350245cdeedee33e473a2379fe7e596242603260943724c4789f5f"
+    },
+    "@nocobase/plugin-field-sort": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-field-sort/package.json",
+      "package_json_sha256": "e7f0e416eab2b4e6a8e96cd88e85f1b920c99c5585cd8ed0764d56a2658ea083"
+    },
+    "@nocobase/plugin-file-manager": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-file-manager/package.json",
+      "package_json_sha256": "e02ad11fb2036f279a7914b18811c44583ef68608a475f0b33115ce63dac9a66"
+    },
+    "@nocobase/plugin-file-previewer-office": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-file-previewer-office/package.json",
+      "package_json_sha256": "f28db658fb5a8b803d04d18ee525516b9c5b353be67a01cb1bc3138c6661b87c"
+    },
+    "@nocobase/plugin-flow-engine": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-flow-engine/package.json",
+      "package_json_sha256": "dc907b299c542644fa0690495934f808984565756bc4ad03852ee9d7855aed6e"
+    },
+    "@nocobase/plugin-form-drafts": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-form-drafts/package.json",
+      "package_json_sha256": "f36c08ef4da81a2fe3967c9895646970510e7e49cc9af1f758c0622e4bb02df6"
+    },
+    "@nocobase/plugin-gantt": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-gantt/package.json",
+      "package_json_sha256": "c28e147610006c957f6337f8dba3f039bc8ce7ecefa5effe7fe782837a6e50ba"
+    },
+    "@nocobase/plugin-graph-collection-manager": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-graph-collection-manager/package.json",
+      "package_json_sha256": "841650fa1b00e3facfc024e1794e5656ae39ccd0a87634d3612235cf2be51b31"
+    },
+    "@nocobase/plugin-hello": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-hello/package.json",
+      "package_json_sha256": "6570707c3c5e553db2f6de2c523939c6c4baf1f5774579a9a862232bf46e8bbf"
+    },
+    "@nocobase/plugin-idp-oauth": {
+      "version": "2.2.30",
+      "license": null,
+      "source_path": "packages/plugins/@nocobase/plugin-idp-oauth/package.json",
+      "package_json_sha256": "9050dc5298c3001222c62856b8e750b234cc4e0c5de184ea35621e03e637570a",
+      "license_fallback": "repository-root-package-json"
+    },
+    "@nocobase/plugin-kanban": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-kanban/package.json",
+      "package_json_sha256": "07abfcaa21fa460d9d96e3cc10c9167e5614e6d0739172df86ca39031e115414"
+    },
+    "@nocobase/plugin-license": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-license/package.json",
+      "package_json_sha256": "51d55145a4961e94ee8d6854aa5ad5313d47f53a597c6d4444d37c24cf472727"
+    },
+    "@nocobase/plugin-locale-tester": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-locale-tester/package.json",
+      "package_json_sha256": "e47258b2fa72aaa2b87c841f761e42eb2a75767759466c1be04e3fde695d66aa"
+    },
+    "@nocobase/plugin-localization": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-localization/package.json",
+      "package_json_sha256": "d97639f653c23b6875db6619fe131cee148b2bf5971f22a003e7ce8520dbd5b6"
+    },
+    "@nocobase/plugin-logger": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-logger/package.json",
+      "package_json_sha256": "301ab34cabd63f9eebc38f3d1368166b55dccfd0e3af51f55ed39bf7cc0960ad"
+    },
+    "@nocobase/plugin-map": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-map/package.json",
+      "package_json_sha256": "adc377cc282efc8bb7276293a28f5fa52d9de3f00f39633da1c70d3e8411b2d8"
+    },
+    "@nocobase/plugin-mcp-server": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-mcp-server/package.json",
+      "package_json_sha256": "2c93cf6d227e4155cf2580f8771a70f933ea39344392c8f9a575674a7a2411a0"
+    },
+    "@nocobase/plugin-mobile": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-mobile/package.json",
+      "package_json_sha256": "73ef2daa59d3c3c292766fec424d2b21b929d1a85d076288cbce1cb870e9026d"
+    },
+    "@nocobase/plugin-mobile-client": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-mobile-client/package.json",
+      "package_json_sha256": "103743c606424e34ac832ec8c94deaf5e29c5ef3c23dd4a35a365ca0bb09a285"
+    },
+    "@nocobase/plugin-mock-collections": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-mock-collections/package.json",
+      "package_json_sha256": "51d92cedee0ddd3041e4861ac9393123e945ec097d803f5cc1c2b6b467cc4a6f"
+    },
+    "@nocobase/plugin-multi-app-manager": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-multi-app-manager/package.json",
+      "package_json_sha256": "994964fc911e44449fb20833577b2e9525cf7d73df3bff216f6ff314f72e4767"
+    },
+    "@nocobase/plugin-multi-app-share-collection": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-multi-app-share-collection/package.json",
+      "package_json_sha256": "681268fe720cdf959bb352187a86545b7a85a7b2cd81324c8f67a4f536408931"
+    },
+    "@nocobase/plugin-multi-keyword-filter": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-multi-keyword-filter/package.json",
+      "package_json_sha256": "7d6cc21d1a911f2a9e488c3024469ae0dfe2958a398b633bcd33018aade84a03"
+    },
+    "@nocobase/plugin-notification-email": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-notification-email/package.json",
+      "package_json_sha256": "9acb827e43b5599d0f65156a37217699fcad44329d02be2ee1b886d8f8ca03e2"
+    },
+    "@nocobase/plugin-notification-in-app-message": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-notification-in-app-message/package.json",
+      "package_json_sha256": "0105e5f369f67df9c9c7ed9f48cc7aa496a7f30413ec64623247769fa7ff3980"
+    },
+    "@nocobase/plugin-notification-manager": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-notification-manager/package.json",
+      "package_json_sha256": "b2bb780f134c85b420cd2e6a6e58b77c6da86ff6ac0a2f2483c27fda80833522"
+    },
+    "@nocobase/plugin-notifications": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-notifications/package.json",
+      "package_json_sha256": "1f122060bc038b93f2d7e86e09f2b70387207919c40fb8ed7afb879bc31968ed"
+    },
+    "@nocobase/plugin-public-forms": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-public-forms/package.json",
+      "package_json_sha256": "868874bb1170d865c6e6a203f157f2ffe2139ae8528f40f1b6e1cc4048b88f3c"
+    },
+    "@nocobase/plugin-snapshot-field": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-snapshot-field/package.json",
+      "package_json_sha256": "c93537a647d9a1db6ed38d4736c611721d780fd438cb79f4c8533e733873940a"
+    },
+    "@nocobase/plugin-system-settings": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-system-settings/package.json",
+      "package_json_sha256": "8045fcc415f52d78952ba981d96f6bdf35fca4dcea757c83f40ca1f75a7f50a3"
+    },
+    "@nocobase/plugin-text-copy": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-text-copy/package.json",
+      "package_json_sha256": "778c08fdf00394b3e2fff6a3678a2790fd51d6011f5d7d95ee50b4ee189bf9b9"
+    },
+    "@nocobase/plugin-theme-editor": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-theme-editor/package.json",
+      "package_json_sha256": "8fc106cdd5d272700906825c6b67209b347e3d575ffbea3c6598450a8c2e68f8"
+    },
+    "@nocobase/plugin-ui-layout": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-ui-layout/package.json",
+      "package_json_sha256": "dadd03aed17e0a986907c2ebf192321a91bf413e65492be434ffa5343fc147f3"
+    },
+    "@nocobase/plugin-ui-schema-storage": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-ui-schema-storage/package.json",
+      "package_json_sha256": "3aeaac45863bc6fc88940414b53997c787e92a571152e0c7d7583d1efcbb8229"
+    },
+    "@nocobase/plugin-ui-templates": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-ui-templates/package.json",
+      "package_json_sha256": "e6f64ac6c43ae82359d9a40c991f697b84bac16426accf679c3b9a6511564344"
+    },
+    "@nocobase/plugin-user-data-sync": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-user-data-sync/package.json",
+      "package_json_sha256": "898f64a275bc1a901e5b2d972811f0c49647d00d64d431d70b2a32de67882764"
+    },
+    "@nocobase/plugin-users": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-users/package.json",
+      "package_json_sha256": "db2d0f98a2cec97fa98aaccf5c5d9a52aef9d2170d34dd7739665f4d73a092f6"
+    },
+    "@nocobase/plugin-verification": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-verification/package.json",
+      "package_json_sha256": "a70b6158c415c28eb7e345fba82ef0d3fe3e0c1a1cd47b856800054158a63ede"
+    },
+    "@nocobase/plugin-workflow": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-workflow/package.json",
+      "package_json_sha256": "e30ce373828e9130642bc4c18dc23ead36ae498fd3d379ca871b1a24179b7677"
+    },
+    "@nocobase/plugin-workflow-action-trigger": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-workflow-action-trigger/package.json",
+      "package_json_sha256": "0e15b4c0514bf9a47995d078398496f7f13bf44dd6e7ae6ecb0bbebe521f7715"
+    },
+    "@nocobase/plugin-workflow-aggregate": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-workflow-aggregate/package.json",
+      "package_json_sha256": "095f6f03144f32405987a78ec52da99843ec9d9af261de3de52fda3a916365a8"
+    },
+    "@nocobase/plugin-workflow-cc": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-workflow-cc/package.json",
+      "package_json_sha256": "55b750aed1bbb492ceba43dc7a3c14ee824c7f308a19a35c2990ba04699f4536"
+    },
+    "@nocobase/plugin-workflow-custom-action-trigger": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-workflow-custom-action-trigger/package.json",
+      "package_json_sha256": "a597a2394f2f9f1e60e4b4166c5506453f0eae2c55c532bdee2b94f30d36269c"
+    },
+    "@nocobase/plugin-workflow-date-calculation": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-workflow-date-calculation/package.json",
+      "package_json_sha256": "e7014ec4348fcc973ba1169041d9e0808e3c14001a2dce936429443178ba3f51"
+    },
+    "@nocobase/plugin-workflow-delay": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-workflow-delay/package.json",
+      "package_json_sha256": "a93866bb7365591c509692965f441705e24ff7d92bc41f240d1337ca9587f2d4"
+    },
+    "@nocobase/plugin-workflow-dynamic-calculation": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-workflow-dynamic-calculation/package.json",
+      "package_json_sha256": "eb2e2ab193e85119a92160e97aceec9aab4296cc8a49ae7851979bd136b07341"
+    },
+    "@nocobase/plugin-workflow-javascript": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-workflow-javascript/package.json",
+      "package_json_sha256": "33385c9f77c0d2fa0d0d074482eaabe8ba30a7176ebbcb339aa131cae2633f26"
+    },
+    "@nocobase/plugin-workflow-json-query": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-workflow-json-query/package.json",
+      "package_json_sha256": "e1ac20c43b0f2c17f8807672dbefb0d7e31f4b4cecc8d834ae565ae12296cafd"
+    },
+    "@nocobase/plugin-workflow-json-variable-mapping": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-workflow-json-variable-mapping/package.json",
+      "package_json_sha256": "c3934dfd13a5dc72f40a4f03d7223d47931c2bf5623b1148cebdd56d8b5f0168"
+    },
+    "@nocobase/plugin-workflow-loop": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-workflow-loop/package.json",
+      "package_json_sha256": "540bb03ac3d9d96a15a352632673e355ac744dc65625371c625d6564c01e5acb"
+    },
+    "@nocobase/plugin-workflow-mailer": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-workflow-mailer/package.json",
+      "package_json_sha256": "f6f3d6e46136cca73abe632b8cdb506f5fe93d7af0e9317a52d88da9ff400462"
+    },
+    "@nocobase/plugin-workflow-manual": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-workflow-manual/package.json",
+      "package_json_sha256": "9df23159c687ccaac43e7a2b9dd8d02fa61dd117d855501e13c3438aca060508"
+    },
+    "@nocobase/plugin-workflow-notification": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-workflow-notification/package.json",
+      "package_json_sha256": "681da8cc91a98be8429595a4049f7f9d2965900c87df1eb67f7c5ed20015ed76"
+    },
+    "@nocobase/plugin-workflow-parallel": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-workflow-parallel/package.json",
+      "package_json_sha256": "4cc3fbb1c81529f9e47bc6b2db2017b70c4eef1b923b0f7d2ae29a7baaa2243a"
+    },
+    "@nocobase/plugin-workflow-request": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-workflow-request/package.json",
+      "package_json_sha256": "939a2cf25f13a85900dbd056c169f1302c7d98202474d692bc8ea8f0e094ced3"
+    },
+    "@nocobase/plugin-workflow-request-interceptor": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-workflow-request-interceptor/package.json",
+      "package_json_sha256": "e9e3633f448496a756709c0e3a9e2f02c770f2d0ec2919477af9291bbe2e6d7d"
+    },
+    "@nocobase/plugin-workflow-response-message": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-workflow-response-message/package.json",
+      "package_json_sha256": "8879573db30f72b150efbb220ccf0c984bbd5fa1aa17bfd2ef9e11386c38ac70"
+    },
+    "@nocobase/plugin-workflow-sql": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-workflow-sql/package.json",
+      "package_json_sha256": "5fede79d541263d482e81cf9422393634138eca0bc011dbd73f0324eee1718ce"
+    },
+    "@nocobase/plugin-workflow-test": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-workflow-test/package.json",
+      "package_json_sha256": "bec175387e6c9f21950c38865c6b7d997e760c6615c295bc0bfa9c4f6b2ffd94"
+    },
+    "@nocobase/plugin-workflow-variable": {
+      "version": "2.2.30",
+      "license": "Apache-2.0",
+      "source_path": "packages/plugins/@nocobase/plugin-workflow-variable/package.json",
+      "package_json_sha256": "b7cf00415fdc1bbb63909eea9dd476e25e09dc58611b9d4ab1dfad101a640c09"
+    }
+  },
+  "project_plugins": {
+    "@project2/plugin-ops": {
+      "version": "0.1.0",
+      "source_path": "nocobase/plugins/@project2/plugin-ops/package.json"
+    }
+  },
+  "repository_license": "Apache-2.0",
+  "repository_package_json_sha256": "a0411e7f032f5699ce1a1616ba9a6362320933342b2e2ac4b2507637653887d8",
+  "source_ref_url": "https://api.github.com/repos/nocobase/nocobase/git/ref/tags/v2.2.30"
+}

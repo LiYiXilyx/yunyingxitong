@@ -1,0 +1,9 @@
+{
+  "name": "ops-contracts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {"node": ">=26 <27"},
+  "scripts": {"test": "node --test typescript/*.test.ts", "verify": "node --test typescript/*.test.ts"},
+  "dependencies": {"ajv": "8.20.0", "ajv-formats": "3.0.1"}
+}

@@ -1,0 +1,10 @@
+FROM python:3.13-slim-bookworm@sha256:a881a81282cca8c57f97014867fa651def1b3799030cc6b1cff45ed55ba8ef36
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PYTHONPATH=/workspace/services/ops-data
+WORKDIR /workspace
+COPY services/ops-data/requirements.lock /tmp/requirements.lock
+RUN pip install --no-cache-dir -r /tmp/requirements.lock && useradd --create-home --uid 10001 ops
+COPY contracts /workspace/contracts
+COPY services/ops-data /workspace/services/ops-data
+USER ops
+EXPOSE 8000
+CMD ["uvicorn", "ops_data.app:create_app", "--factory", "--host", "0.0.0.0", "--port", "8000"]

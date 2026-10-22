@@ -1,0 +1,15 @@
+#!/bin/sh
+set -eu
+psql --username "$POSTGRES_USER" --dbname postgres --set ON_ERROR_STOP=1 <<'SQL'
+\getenv noco_password NOCO_DB_PASSWORD
+\getenv ops_password OPS_DB_PASSWORD
+SELECT format('CREATE ROLE nocobase_app LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE PASSWORD %L', :'noco_password') \gexec
+SELECT format('CREATE ROLE ops_app LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE PASSWORD %L', :'ops_password') \gexec
+CREATE DATABASE nocobase OWNER nocobase_app;
+CREATE DATABASE ops OWNER ops_app;
+REVOKE CONNECT ON DATABASE nocobase FROM PUBLIC;
+REVOKE CONNECT ON DATABASE ops FROM PUBLIC;
+REVOKE CONNECT ON DATABASE postgres FROM PUBLIC;
+GRANT CONNECT ON DATABASE nocobase TO nocobase_app;
+GRANT CONNECT ON DATABASE ops TO ops_app;
+SQL
