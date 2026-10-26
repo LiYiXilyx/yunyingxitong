@@ -362,7 +362,7 @@ function register(plugin) {
         )
           ctx.throw(400, "Valid user_id required");
         if (name === "opsOwnerAssignments") {
-          if (!["R1", "R2", "R3"].includes(values.rule_family))
+          if (!["R1", "R2", "R3", "DATA"].includes(values.rule_family))
             ctx.throw(400, "Unknown owner rule family");
           const user = await db.getRepository("users").findOne({
             filterByTk: values.user_id,

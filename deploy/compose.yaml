@@ -28,12 +28,14 @@ services:
       INIT_ROOT_EMAIL: ${INIT_ROOT_EMAIL:?run make bootstrap}
       INIT_ROOT_PASSWORD: ${INIT_ROOT_PASSWORD:?run make bootstrap}
       INIT_ROOT_NICKNAME: 项目2管理员
+      OPS_CONTRACTS_DIR: /workspace/contracts
       TZ: UTC
     ports:
       - 127.0.0.1:13000:80
     volumes:
       - nocobase-storage:/app/nocobase/storage
       - ../plugins/nocobase-plugin-ops:/app/nocobase/node_modules/@project2/plugin-ops:ro
+      - ../contracts:/workspace/contracts:ro
     depends_on:
       postgres:
         condition: service_healthy

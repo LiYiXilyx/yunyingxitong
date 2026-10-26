@@ -3,6 +3,7 @@ import { client } from "./lib/nocobase-api.mjs";
 import { pageSpecs, pageSchema, routeSpec } from "../config/nocobase-pages.mjs";
 const request = await client();
 const replace = process.argv.includes("--replace-pages");
+const refreshHealth = process.argv.includes("--refresh-health");
 const allRoles = (await request("roles", "list", { params: { pageSize: 200 } }))
   .data;
 for (const name of [
@@ -44,7 +45,7 @@ for (const spec of pageSpecs) {
   } catch (e) {
     if (!e.message.includes("404")) throw e;
   }
-  if (current?.["x-uid"] && replace) {
+  if (current?.["x-uid"] && (replace || (refreshHealth && spec.key === "health"))) {
     const dir = new URL("../.local/ui-backups/", import.meta.url);
     mkdirSync(dir, { recursive: true, mode: 0o700 });
     writeFileSync(

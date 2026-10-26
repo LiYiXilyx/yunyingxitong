@@ -47,6 +47,7 @@ function visible(row, who, grants, name) {
     return String(r.user_id) === String(who.id);
   if (name === "opsConfigVersions" || name === "opsCommandReceipts")
     return false;
+  if (r.health_scope && (!r.health_scope.store_ids.every(id => grants.stores.has(id)) || !r.health_scope.warehouse_ids.every(id => grants.warehouses.has(id)))) return false;
   if (r.warehouse_id && !grants.warehouses.has(r.warehouse_id)) return false;
   if (r.store_id && !grants.stores.has(r.store_id)) return false;
   if (!r.store_id && !r.warehouse_id) return false;

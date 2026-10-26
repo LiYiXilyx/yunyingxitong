@@ -464,7 +464,7 @@
                   "rule_family",
                   "规则",
                   h(Select, {
-                    options: ["R1", "R2", "R3"].map((x) => ({
+                    options: ["R1", "R2", "R3", "DATA"].map((x) => ({
                       value: x,
                       label: x,
                     })),

@@ -24,6 +24,7 @@ const statusLabels = {
   succeeded: "采集成功",
   failed: "采集失败",
   needs_user: "需人工处理",
+  recovered: "数据已恢复（待确认）",
 };
 const enums = {
   status: Object.entries(statusLabels).map(([value, label]) => ({
@@ -31,6 +32,12 @@ const enums = {
     label,
   })),
   environment: [{ value: "synthetic", label: "测试数据" }],
+  data_type: [
+    { value: "orders", label: "订单" },
+    { value: "refunds", label: "退款" },
+    { value: "inventory", label: "库存" },
+    { value: "catalog", label: "商品与组合装" },
+  ],
   scope_type: [
     { value: "store", label: "店铺" },
     { value: "warehouse", label: "共享仓库" },

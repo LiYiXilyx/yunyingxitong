@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Ops API contracts",
-    "version": "0.2.0",
-    "description": "T03 implements synthetic configuration snapshots, administrator configuration commands and supervisor rule commands in NocoBase on port 13000. The data service on port 18000 implements health routes only. Other operations remain pending. The T03 command API uses numeric integer configuration versions and ordinary JSON bodies; it does not use the pending signed worker envelope. The pending worker envelope hashes compact sorted UTF-8 JSON except payload_hash and uses decimal strings for revisions and quantities."
+    "version": "0.3.0",
+    "description": "T03 configuration/rule commands and T05 synthetic health ingestion run in NocoBase on port 13000. The data service on port 18000 exposes health routes only; batch/job/metric operations are internal Python APIs. Other business endpoints remain pending. T03 configuration versions are integers. T05 health commands use decimal-string revisions and SHA256 over compact sorted UTF-8 JSON excluding payload_hash; the hash detects content changes, while the NocoBase bearer authenticates the caller."
   },
   "paths": {
     "/api/opsConfig:snapshot": {
@@ -162,11 +162,11 @@
     },
     "/api/opsDataHealth:ingest": {
       "post": {
-        "x-implementation": "pending",
-        "description": "Design contract only. Not registered by the T02 FastAPI application. Authentication, scope enforcement, durable Inbox/Outbox and business effects remain pending.",
+        "x-implementation": "implemented",
+        "description": "T05 health-only command. Requires actual ops_integration role, current scope grants and current configuration binding_version. Atomically stores a durable receipt, scope/data_type health summary and merged data issue. Older health_revision is ignored; identical retries remain authorized before returning duplicate. No business task dispatch. last_attempt_at is null if never attempted. One authoritative synthetic connection per scope/data_type; live-source projection is not enabled.",
         "security": [
           {
-            "internalBearer": []
+            "nocobaseBearer": []
           }
         ],
         "responses": {
@@ -175,7 +175,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                  "$ref": "#/components/schemas/NocobaseError"
                 }
               }
             }
@@ -185,7 +185,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                  "$ref": "#/components/schemas/NocobaseError"
                 }
               }
             }
@@ -195,7 +195,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                  "$ref": "#/components/schemas/NocobaseError"
                 }
               }
             }
@@ -205,13 +205,55 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "ops-v1.schema.json#/$defs/Error"
+                  "$ref": "#/components/schemas/NocobaseError"
                 }
               }
             }
           },
           "200": {
-            "description": "Planned response; not implemented in T02."
+            "description": "Durable NocoBase health receipt.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "receipt_id",
+                        "command_id",
+                        "status",
+                        "health_revision"
+                      ],
+                      "properties": {
+                        "receipt_id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "command_id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "status": {
+                          "enum": [
+                            "applied",
+                            "duplicate",
+                            "ignored_stale"
+                          ]
+                        },
+                        "health_revision": {
+                          "type": "string",
+                          "pattern": "^[1-9][0-9]*$"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -224,7 +266,13 @@
             }
           }
         },
-        "x-payload-definition": "HealthEnvelope"
+        "x-payload-definition": "HealthEnvelope",
+        "x-contract-status": "synthetic-only",
+        "servers": [
+          {
+            "url": "http://127.0.0.1:13000"
+          }
+        ]
       }
     },
     "/api/opsInspection:ingest": {

@@ -89,8 +89,8 @@ def test_shared_invalid_signed_commands():
 def test_openapi_separates_implemented_nocobase_commands_from_pending_data_apis():
     document=json.loads((ROOT/'contracts/openapi.yaml').read_text())
     implemented={path for path,methods in document['paths'].items() if any(operation.get('x-implementation')=='implemented' for operation in methods.values())}
-    assert implemented=={'/health/live','/health/ready','/api/opsConfig:snapshot','/api/opsConfig:command','/api/opsRule:command'}
-    for path,method in [('/api/opsConfig:snapshot','get'),('/api/opsConfig:command','post'),('/api/opsRule:command','post')]:
+    assert implemented=={'/health/live','/health/ready','/api/opsConfig:snapshot','/api/opsConfig:command','/api/opsRule:command','/api/opsDataHealth:ingest'}
+    for path,method in [('/api/opsConfig:snapshot','get'),('/api/opsConfig:command','post'),('/api/opsRule:command','post'),('/api/opsDataHealth:ingest','post')]:
         operation=document['paths'][path][method]
         assert operation['servers']==[{'url':'http://127.0.0.1:13000'}]
         assert operation['security']==[{'nocobaseBearer':[]}]

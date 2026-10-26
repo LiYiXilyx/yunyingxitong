@@ -77,12 +77,12 @@ const definitions = {
     json("payload"),
   ],
   opsDataHealth: [
-    str("source"),
+    str("source"), str("scope_key"), json("health_scope"), str("data_type"), str("health_revision"), str("envelope_hash"), str("last_attempt_at"), str("freshness_deadline"), json("expected_window"), json("missing_fields"), str("error_class"),
     str("last_success_at"),
     str("business_date"),
     json("details"),
   ],
-  opsDataIssues: [str("source"), str("description")],
+  opsDataIssues: [str("source"), str("description"), str("issue_key"), json("health_scope"), str("data_type"), str("error_class"), str("health_revision"), num("assignee_id")],
   opsConfigVersions: [json("snapshot"), num("actor_id"), str("reason")],
   opsCommandReceipts: [str("command_id"), json("result")],
 };

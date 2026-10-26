@@ -655,19 +655,33 @@
                           },
                           "c2": {
                             "type": "void",
-                            "title": "来源",
+                            "title": "数据类型",
                             "x-decorator": "TableV2.Column.Decorator",
                             "x-component": "TableV2.Column",
                             "properties": {
-                              "source": {
+                              "data_type": {
                                 "type": "string",
                                 "x-component": "CollectionField",
-                                "x-collection-field": "opsDataHealth.source",
+                                "x-collection-field": "opsDataHealth.data_type",
                                 "x-read-pretty": true
                               }
                             }
                           },
                           "c3": {
+                            "type": "void",
+                            "title": "最后尝试时间",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "last_attempt_at": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsDataHealth.last_attempt_at",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c4": {
                             "type": "void",
                             "title": "最后成功时间",
                             "x-decorator": "TableV2.Column.Decorator",
@@ -681,7 +695,21 @@
                               }
                             }
                           },
-                          "c4": {
+                          "c5": {
+                            "type": "void",
+                            "title": "时效截止时间",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "freshness_deadline": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsDataHealth.freshness_deadline",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c6": {
                             "type": "void",
                             "title": "数据用途",
                             "x-decorator": "TableV2.Column.Decorator",
@@ -789,6 +817,54 @@
                                                     "title": "最后成功时间",
                                                     "x-decorator": "FormItem"
                                                   },
+                                                  "last_attempt_at": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsDataHealth.last_attempt_at",
+                                                    "x-read-pretty": true,
+                                                    "title": "最后尝试时间",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "freshness_deadline": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsDataHealth.freshness_deadline",
+                                                    "x-read-pretty": true,
+                                                    "title": "时效截止时间",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "expected_window": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsDataHealth.expected_window",
+                                                    "x-read-pretty": true,
+                                                    "title": "应采集时间范围",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "missing_fields": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsDataHealth.missing_fields",
+                                                    "x-read-pretty": true,
+                                                    "title": "缺少的资料或字段",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "error_class": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsDataHealth.error_class",
+                                                    "x-read-pretty": true,
+                                                    "title": "问题分类",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "health_revision": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsDataHealth.health_revision",
+                                                    "x-read-pretty": true,
+                                                    "title": "健康状态版本",
+                                                    "x-decorator": "FormItem"
+                                                  },
                                                   "details": {
                                                     "type": "string",
                                                     "x-component": "CollectionField",
@@ -891,19 +967,33 @@
                           },
                           "c2": {
                             "type": "void",
-                            "title": "来源",
+                            "title": "数据类型",
                             "x-decorator": "TableV2.Column.Decorator",
                             "x-component": "TableV2.Column",
                             "properties": {
-                              "source": {
+                              "data_type": {
                                 "type": "string",
                                 "x-component": "CollectionField",
-                                "x-collection-field": "opsDataIssues.source",
+                                "x-collection-field": "opsDataIssues.data_type",
                                 "x-read-pretty": true
                               }
                             }
                           },
                           "c3": {
+                            "type": "void",
+                            "title": "负责人编号",
+                            "x-decorator": "TableV2.Column.Decorator",
+                            "x-component": "TableV2.Column",
+                            "properties": {
+                              "assignee_id": {
+                                "type": "string",
+                                "x-component": "CollectionField",
+                                "x-collection-field": "opsDataIssues.assignee_id",
+                                "x-read-pretty": true
+                              }
+                            }
+                          },
+                          "c4": {
                             "type": "void",
                             "title": "数据用途",
                             "x-decorator": "TableV2.Column.Decorator",
@@ -979,12 +1069,28 @@
                                                     "title": "说明",
                                                     "x-decorator": "FormItem"
                                                   },
-                                                  "source": {
+                                                  "data_type": {
                                                     "type": "string",
                                                     "x-component": "CollectionField",
-                                                    "x-collection-field": "opsDataIssues.source",
+                                                    "x-collection-field": "opsDataIssues.data_type",
                                                     "x-read-pretty": true,
-                                                    "title": "来源",
+                                                    "title": "数据类型",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "error_class": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsDataIssues.error_class",
+                                                    "x-read-pretty": true,
+                                                    "title": "问题分类",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "assignee_id": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsDataIssues.assignee_id",
+                                                    "x-read-pretty": true,
+                                                    "title": "负责人编号",
                                                     "x-decorator": "FormItem"
                                                   },
                                                   "store_id": {
@@ -993,6 +1099,14 @@
                                                     "x-collection-field": "opsDataIssues.store_id",
                                                     "x-read-pretty": true,
                                                     "title": "店铺编号",
+                                                    "x-decorator": "FormItem"
+                                                  },
+                                                  "warehouse_id": {
+                                                    "type": "string",
+                                                    "x-component": "CollectionField",
+                                                    "x-collection-field": "opsDataIssues.warehouse_id",
+                                                    "x-read-pretty": true,
+                                                    "title": "仓库编号",
                                                     "x-decorator": "FormItem"
                                                   },
                                                   "status": {

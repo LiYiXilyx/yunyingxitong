@@ -17,6 +17,7 @@ class OpsBootstrapPlugin extends Plugin {
     await require("./migrations/20261022120000-t03-business-integrity").applyBusinessIntegrity(
       this.db,
     );
+    await require("./services/data-health").integrity(this.db);
     const db = this.db;
     require("./services/commands").register(this);
     this.app.resourceManager.use(
@@ -27,7 +28,7 @@ class OpsBootstrapPlugin extends Plugin {
             .split(/[.,]/)
             .some((n) => collections.some((c) => c.name === n)) &&
           (resource.includes(".") ||
-            !["list", "get"].includes(ctx.action.actionName))
+            !["list", "get"].includes(ctx.action.actionName) && !(resource === "opsDataHealth" && ctx.action.actionName === "ingest"))
         )
           ctx.throw(403, "Business writes and generic operations are disabled");
         await next();
@@ -88,7 +89,9 @@ class OpsBootstrapPlugin extends Plugin {
           };
         }
       };
-      this.app.resource({ name, actions: { list: read, get: read } });
+      if (name === "opsDataHealth")
+        require("./services/data-health").register(this, { list: read, get: read });
+      else this.app.resource({ name, actions: { list: read, get: read } });
       this.app.acl.allow(name, ["list", "get"], "loggedIn");
     }
     this.app.resourceManager.use(
@@ -105,7 +108,7 @@ class OpsBootstrapPlugin extends Plugin {
           void who;
           if (
             resource !== name ||
-            !["list", "get"].includes(ctx.action.getName())
+            !["list", "get"].includes(ctx.action.getName()) && !(resource === "opsDataHealth" && ctx.action.getName() === "ingest")
           )
             ctx.throw(
               403,

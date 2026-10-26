@@ -17,7 +17,7 @@ class DispatchTests(unittest.TestCase):
     def test_unknown_case_rejected(self):
         r=self.run_case('data','invented');self.assertNotEqual(r.returncode,0);self.assertIn('Unknown CASE',r.stderr)
     def test_known_unimplemented_cases_never_pass(self):
-        for suite,case in [('data','test_ingestion'),('data','outbox'),('plugin','tasks'),('plugin','evidence'),('plugin','reviews'),('ego',''),('e2e','')]:
+        for suite,case in [('data','test_rules'),('data','outbox'),('plugin','tasks'),('plugin','evidence'),('plugin','reviews'),('ego',''),('e2e','')]:
             with self.subTest(suite=suite,case=case):
                 r=self.run_case(suite,case);self.assertNotEqual(r.returncode,0);self.assertIn('not implemented',r.stderr.lower())
 
@@ -36,10 +36,10 @@ class DispatchTests(unittest.TestCase):
         result,args=self.plugin_dispatch()
         self.assertEqual(result.returncode,0,result.stderr)
         self.assertIn('--test-concurrency=1',args)
-        self.assertEqual([Path(a).name for a in args if a.endswith(('.test.ts','.test.js'))],['bootstrap.test.ts','scope.test.ts','rules.test.ts','pages.test.ts','client-behavior.test.js'])
+        self.assertEqual([Path(a).name for a in args if a.endswith(('.test.ts','.test.js'))],['bootstrap.test.ts','scope.test.ts','rules.test.ts','pages.test.ts','client-behavior.test.js','data-health.test.ts'])
 
     def test_each_implemented_plugin_case_can_run_alone(self):
-        for case in ['bootstrap','scope','rules','pages','client']:
+        for case in ['bootstrap','scope','rules','pages','client','data-health']:
             with self.subTest(case=case):
                 result,args=self.plugin_dispatch(case)
                 self.assertEqual(result.returncode,0,result.stderr)
@@ -65,8 +65,14 @@ class DispatchTests(unittest.TestCase):
     def test_default_data_suite_includes_wdt_and_postgres(self):
         commands = self.data_dispatch()
         paths = [part for command in commands for part in command if part.endswith('.py')]
-        for name in ('test_contracts.py', 'test_health.py', 'test_wdt.py', 'test_wdt_postgres.py'):
+        for name in ('test_contracts.py', 'test_health.py', 'test_wdt.py', 'test_wdt_postgres.py', 'test_ingestion.py', 'test_ingestion_store.py', 'test_ingestion_jobs.py', 'test_ingestion_health.py', 'test_ingestion_normalize.py'):
             self.assertTrue(any(path.endswith('/'+name) for path in paths), name)
+
+    def test_ingestion_case_runs_all_five_owned_components(self):
+        commands = self.data_dispatch('test_ingestion')
+        self.assertEqual(len(commands), 1)
+        paths = [Path(part).name for part in commands[0] if part.endswith('.py')]
+        self.assertEqual(set(paths), {'test_ingestion.py','test_ingestion_normalize.py','test_ingestion_store.py','test_ingestion_jobs.py','test_ingestion_health.py'})
 
 
 class T03SetupTests(unittest.TestCase):

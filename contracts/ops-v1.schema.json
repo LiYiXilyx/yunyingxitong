@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://ops.local/contracts/ops-v1.schema.json",
-  "title": "Ops v1 pending business command contract",
-  "description": "T02 contract only. No business endpoint or durable receipt is implemented. All numeric values are decimal strings. Hash covers the entire command except payload_hash; object keys sorted, compact UTF-8 JSON.",
+  "title": "Ops v1 worker command contract",
+  "description": "T05 implements synthetic HealthEnvelope ingestion with durable receipts in NocoBase. Other business payload endpoints remain pending. Numeric values are decimal strings. Hash covers the entire command except payload_hash; keys sorted, compact UTF-8 JSON. Hash is not authentication.",
   "type": "object",
   "properties": {
     "schema_version": {
@@ -399,7 +399,14 @@
           "$ref": "#/$defs/Revision"
         },
         "last_attempt_at": {
-          "$ref": "#/$defs/Timestamp"
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "last_success_at": {
           "anyOf": [

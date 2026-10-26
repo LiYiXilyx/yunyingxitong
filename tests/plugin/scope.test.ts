@@ -51,7 +51,9 @@ test("real user roles and memberships isolate store details, assignees and share
   );
   assert.equal((await read(integration)).length, 2);
   assert.equal((await read(a, "opsIncidents")).length, 1);
-  assert.equal((await read(a, "opsDataHealth")).length, 1);
+  const health = await read(a, "opsDataHealth");
+  assert.ok(health.some((row: any) => row.title === "合成数据健康A"));
+  assert.ok(health.every((row: any) => row.store_id === mine[0].store_id && !row.warehouse_id));
   for (const path of [
     "opsTasks:export",
     "opsTasks:query",
