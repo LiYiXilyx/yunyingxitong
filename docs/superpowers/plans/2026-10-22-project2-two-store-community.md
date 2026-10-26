@@ -312,14 +312,16 @@ Makefile                            统一测试与验证入口
 
 ### T04 旺店通连接器
 
-**文件：**`connectors/wdt/{auth,client,pagination,orders,inventory,refunds}.py`、`tests/test_wdt.py`。
+**2026-10-26 实施状态：partial。** 2026-10-23 已核查官方 Java/Postman 鉴权示例与只读端点；现已补齐连接器工程、按 SID＋URI 的 PostgreSQL 共享限流、端点专用分页、合成测试、真实 PG 独立连接测试及 `make setup-wdt` / `make wdt-check`。最终 `make test` 退出 0，其中 T04 套件 47 项通过（44 项离线、3 项真实 PG）；安装两次退出 0，离线配置检查为 needs_user。详情见 [T04验收记录](../../t04-acceptance.md)。未向真实 ERP 发送请求，产品/版本、正式凭据、两店身份和样本对账未通过，T04 不得标记完成。T05 未开始，本轮不上 Ego worker、不派单。上文 T03 的 2026-10-22 状态保留为当日历史记录。
+
+**文件：**`services/ops-data/ops_data/connectors/wdt/{auth,client,pagination,orders,inventory,refunds,shops,rate_limit,migrate}.py`、同目录 `migrations/`、`services/ops-data/tests/test_wdt.py`、`test_wdt_postgres.py`、`docs/wdt-protocol.md`、`docs/t04-acceptance.md`。
 **接口：**`WdtClient.request(endpoint: str, payload: dict) -> dict`；各连接器输出原始页和范围，不直接创建任务。
 
-- [ ] 使用官方完整鉴权样例核对签名字节与时间戳，不使用文档公开示例密钥；凭据仅服务端持有，日志脱敏。
-- [ ] 写测试：签名golden fixture、时间重签、按SID＋URI共享限流、不同分页语义、接口业务错误不误判成功、限流退避及超时。
-- [ ] 实现只读API允许清单；起步共享限速40次/分钟（工程值，低于文档每SID＋URI少于60次要求）。
+- [x] 读取官方完整鉴权可执行样例：Java/Postman 均使用 key+value，无 &/=；保留 Call Guide 示意图矛盾。工程不使用公开示例凭据，默认 live 关闭；UTF-8/小写 Hex 属库语义推断，正式签名兼容性待验。
+- [x] 编写 synthetic 签名 fixture、时间重签、SID＋URI 共享限流、端点分页、业务错误、退避及超时测试；没有官方预期 digest，不将 synthetic 称为官方 golden。最终测试结果另见验收记录。
+- [x] 实现固定 HTTPS POST 只读允许清单、不跟随重定向；共享限速 40 次/滚动 60 秒（本地工程值，低于官方每 SID＋URI 小于 60 次/min 的要求）。
 - [ ] 用正式授权分别取得两店、订单/子单、库存、退款样本，核对状态参数；不能使用默认“只取已发货”替代已确认口径。
-- [ ] `make test-data CASE=test_wdt`通过，保存脱敏请求/响应和对账摘要；真实接口未通过不得标记T04完成。
+- [ ] T04 工程测试通过且保存真实脱敏请求/响应与对账摘要。工程部分已由最终 `make test` 执行 `CASE=test_wdt` 同一套件并通过；真实接口及对账仍未执行，不得标记 T04 完成。
 
 ### T05 标准化与可靠同步
 

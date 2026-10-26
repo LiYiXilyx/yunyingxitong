@@ -15,14 +15,18 @@ env['PYTHONPATH']=str(ROOT/'services/ops-data')
 if a.suite=='data':
     known={'test_wdt','test_ingestion','test_rules','test_reviews','test_recovery','outbox','contracts','health'}
     if a.case and a.case not in known: raise SystemExit(f'Unknown CASE: {a.case}')
-    for case in ([a.case] if a.case else ['contracts','health']):
+    for case in ([a.case] if a.case else ['contracts','health','test_wdt']):
         filename={'outbox':'test_outbox.py','contracts':'test_contracts.py','health':'test_health.py'}.get(case,case+'.py')
         target='services/ops-data/tests/'+filename
         if not (ROOT/target).exists(): raise SystemExit(f'Not implemented yet: {target}')
         if case=='contracts':
             commands.append([str(ROOT/'services/ops-data/.venv/bin/python'),'-m','pytest',target,'-q','--tb=short'])
         else:
-            commands.append(['scripts/compose.sh','exec','-T','ops-data','sh','-c','OPS_TEST_DATABASE_URL="$OPS_DATABASE_URL" python -m pytest "$1" -q --tb=short -p no:cacheprovider','test',target])
+            targets=[target]
+            if case=='test_wdt':
+                targets.append('services/ops-data/tests/test_wdt_postgres.py')
+                if not (ROOT/targets[-1]).exists(): raise SystemExit(f'Not implemented yet: {targets[-1]}')
+            commands.append(['scripts/compose.sh','exec','-T','ops-data','sh','-c','OPS_TEST_DATABASE_URL="$OPS_DATABASE_URL" python -m pytest "$@" -q --tb=short -p no:cacheprovider','test',*targets])
 elif a.suite=='plugin':
     implemented=['bootstrap','scope','rules','pages','client']
     known={*implemented,'tasks','evidence','reviews'}
@@ -35,7 +39,7 @@ elif a.suite=='plugin':
     # Scope and rule suites share the authoritative configuration version.
     commands.append(['node','--test','--test-concurrency=1',*targets])
 else:
-    raise SystemExit(f'{a.suite}: not implemented through T03; no tests executed')
+    raise SystemExit(f'{a.suite}: not implemented through T04; no tests executed')
 for command in commands:
     result=subprocess.call(command,cwd=ROOT,env=env)
     if result: raise SystemExit(result)

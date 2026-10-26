@@ -1,0 +1,9 @@
+{
+  "source": "Synthetic only; independent Node.js crypto MD5 of key+value concatenation from official Java/Postman algorithm; not an official successful request/response",
+  "app_name": "synthetic-app",
+  "sid": "synthetic-sid",
+  "key": "synthetic-key-2026",
+  "timestamp": "1792756800",
+  "body": "{\"文本\":\"订单\",\"amount\":\"12.30\"}",
+  "digest": "6987a9c1a36021c6ed39bc0ee9de0f87"
+}

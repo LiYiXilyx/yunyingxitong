@@ -1,4 +1,4 @@
-.PHONY: bootstrap up down status setup-dev setup-t03 build-plugin-client test-data test-plugin test-ego test-e2e test-bootstrap verify-community verify-contracts test
+.PHONY: bootstrap up down status setup-dev setup-t03 setup-wdt wdt-check build-plugin-client test-data test-plugin test-ego test-e2e test-bootstrap verify-community verify-contracts test
 bootstrap:
 	python3 scripts/bootstrap.py
 up: bootstrap build-plugin-client
@@ -39,3 +39,12 @@ build-plugin-client:
 
 setup-t03: up
 	python3 scripts/setup-t03.py
+
+# Install only the connector limiter table in the independent ops database.
+setup-wdt:
+	scripts/compose.sh up -d --build ops-data
+	scripts/compose.sh exec -T ops-data python -m ops_data.connectors.wdt.migrate
+
+# Offline check; missing credentials intentionally return nonzero.
+wdt-check:
+	python3 scripts/wdt-check.py

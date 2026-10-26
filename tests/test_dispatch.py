@@ -8,6 +8,7 @@ import io
 import os
 import tempfile
 import unittest
+import runpy
 from unittest.mock import patch
 ROOT=Path(__file__).resolve().parents[1]
 class DispatchTests(unittest.TestCase):
@@ -16,7 +17,7 @@ class DispatchTests(unittest.TestCase):
     def test_unknown_case_rejected(self):
         r=self.run_case('data','invented');self.assertNotEqual(r.returncode,0);self.assertIn('Unknown CASE',r.stderr)
     def test_known_unimplemented_cases_never_pass(self):
-        for suite,case in [('data','test_wdt'),('data','outbox'),('plugin','tasks'),('plugin','evidence'),('plugin','reviews'),('ego',''),('e2e','')]:
+        for suite,case in [('data','test_ingestion'),('data','outbox'),('plugin','tasks'),('plugin','evidence'),('plugin','reviews'),('ego',''),('e2e','')]:
             with self.subTest(suite=suite,case=case):
                 r=self.run_case(suite,case);self.assertNotEqual(r.returncode,0);self.assertIn('not implemented',r.stderr.lower())
 
@@ -47,6 +48,25 @@ class DispatchTests(unittest.TestCase):
     def test_plugin_failure_is_not_reported_as_success(self):
         result,_=self.plugin_dispatch('bootstrap',exit_code=7)
         self.assertEqual(result.returncode,7)
+
+    def data_dispatch(self, case=''):
+        with patch.object(sys, 'argv', ['run-tests.py', 'data', '--case', case]), patch('subprocess.call', return_value=0) as execute:
+            runpy.run_path(str(ROOT/'scripts/run-tests.py'), run_name='__main__')
+        return [call.args[0] for call in execute.call_args_list]
+
+    def test_wdt_case_runs_protocol_and_real_postgres_tests(self):
+        commands = self.data_dispatch('test_wdt')
+        self.assertEqual(len(commands), 1)
+        command = commands[0]
+        self.assertIn('services/ops-data/tests/test_wdt.py', command)
+        self.assertIn('services/ops-data/tests/test_wdt_postgres.py', command)
+        self.assertIn('OPS_TEST_DATABASE_URL="$OPS_DATABASE_URL"', command[6])
+
+    def test_default_data_suite_includes_wdt_and_postgres(self):
+        commands = self.data_dispatch()
+        paths = [part for command in commands for part in command if part.endswith('.py')]
+        for name in ('test_contracts.py', 'test_health.py', 'test_wdt.py', 'test_wdt_postgres.py'):
+            self.assertTrue(any(path.endswith('/'+name) for path in paths), name)
 
 
 class T03SetupTests(unittest.TestCase):
