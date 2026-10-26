@@ -8,7 +8,9 @@
 
 **Tech Stack：**NocoBase Community、TypeScript 业务插件、Python/FastAPI 数据服务、PostgreSQL、私有文件目录、Ego CLI、Docker Compose。具体兼容版本及镜像摘要在 T02 锁定；本计划不执行安装。
 
-**Spec：**[既有架构评估](../../../项目2_NocoBase_旺店通_EgoLite_50店落地方案_2026-10-22.md)、[Vibe 源码评估](../../../项目2_VibeSeller深度评估与接入方案_2026-10-22.md)。本计划第1—8节为此次两店交付的范围约束，取代旧方案中更宽的首期范围和粗略日历排期。
+**Spec：**项目根目录的本地研究报告 `项目2_NocoBase_旺店通_EgoLite_50店落地方案_2026-10-22.md`、`项目2_VibeSeller深度评估与接入方案_2026-10-22.md`（原件未上传；[来源与本地位置](../../development-context.md)）。本计划第1—8节为此次两店交付的范围约束，取代旧方案中更宽的首期范围和粗略日历排期。
+
+**当前状态说明（2026-10-26）：**本文件保留最初计划编制时的阶段措辞；实际开发已推进到T05，工程与真实验收边界以[开发交接](../../development-context.md)和各阶段验收记录为准。
 
 ## Global Constraints 全局约束
 
